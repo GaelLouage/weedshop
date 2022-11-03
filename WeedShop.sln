@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeedShop", "WeedShop\WeedShop.csproj", "{4101E48C-55D5-4EF6-BF6F-8AFD54025C78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructuur", "Infrastructuur\Infrastructuur.csproj", "{91713489-7BAE-4635-BB46-22DC25A35126}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4101E48C-55D5-4EF6-BF6F-8AFD54025C78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4101E48C-55D5-4EF6-BF6F-8AFD54025C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4101E48C-55D5-4EF6-BF6F-8AFD54025C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4101E48C-55D5-4EF6-BF6F-8AFD54025C78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91713489-7BAE-4635-BB46-22DC25A35126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91713489-7BAE-4635-BB46-22DC25A35126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91713489-7BAE-4635-BB46-22DC25A35126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91713489-7BAE-4635-BB46-22DC25A35126}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0986210-FDFD-4B5E-853B-A5292C61E165}
+	EndGlobalSection
+EndGlobal

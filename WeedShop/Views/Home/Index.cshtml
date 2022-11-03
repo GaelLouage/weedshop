@@ -1,0 +1,200 @@
+﻿@using Infrastructuur.Models
+@{
+    ViewData["Title"] = "Home Page";
+    <link rel="stylesheet" href="~/css/latestNewsStyle.css" asp-append-version="true" />
+    var mostPopularWeed = ViewData["MostPopularWeed"] as List<WeedEntity>;
+    var mostPopularHash = ViewData["MostPopularHash"] as List<WeedEntity>;
+}
+
+
+@*cannabisbanner*@
+<img class="cannabis-banner" src="/WeedImg/cannabis-banner.jpg"/>
+
+@*@labelGreen*@
+<div class="weedGreen banner-top">
+    <div cite="q1">
+        <div>
+            <img src="/WeedImg/quality.png" />
+        </div>
+        <p class="title">QUALITY</p>
+        <p>Buy cannabis 100% coffeshopt quality.</p>
+    </div>
+
+    <div cite="q1">
+        <div>
+            <img src="~/WeedImg/fast-delivery.png" />
+        </div>
+
+        <p class="title">FAST DELIVERY</p>
+        <p>Shipping 1-2 days</p>
+    </div>
+
+    <div cite="q1">
+        <div>
+            <img src="~/WeedImg/seccured-shipping.png" />
+        </div>
+
+        <p class="title">SECURE SHIPPED</p>
+        <p>Always odorless &Aacute & discreetly shipped</p>
+    </div>
+
+    <div cite="q1">
+        <div>
+            <img src="/WeedImg/bitcoin.png" />
+        </div>
+
+        <p class="title">PAY ANONYMOUS</p>
+        <p>Pay anonymously with Bitcoin or Litecoin via Ideal or Bancontact</p>
+    </div>
+</div>
+@*most popular*@
+<div class="most-popular-container">
+    <div>
+        <h5>WEED</h5>
+        <h3>MOST POPULAR</h3>
+
+    </div>
+
+    <div class="most-popular-box-one">
+        @foreach (var item in mostPopularWeed)
+        {
+            <div>
+                <img src="@item.ImageFileLocation" />
+                <p>@item.Name</p>
+                <p>@item.Rating</p>
+                <p class="price">€ @item.Price</p>
+                <a class="weedGreen btn btn-lg" asp-action="Details" asp-controller="Weed" asp-route-id="@item.Id">SHOW MORE</a>
+            </div>
+        }
+    </div>
+    <div>
+        <h5>Hasj</h5>
+        <h3>MOST POPULAR</h3>
+    </div>
+    <div class="most-popular-box-one">
+        @foreach (var item in mostPopularHash)
+        {
+            <div>
+                <img src="@item.ImageFileLocation" />
+                <p>@item.Name</p>
+                <p>@item.Rating</p>
+                <p class="price">€ @item.Price</p>
+                <a class="weedGreen btn btn-lg" asp-action="Details" asp-controller="Weed" asp-route-id="@item.Id">SHOW MORE</a>
+            </div>
+        }
+
+    </div>
+</div>
+@*green banner*@
+<div class="green-banner">
+    <div>
+        <h3>Buy Weed</h3>
+        <p>
+            Buying cannabis online in 2022 has never been easier. At weed.store you can now easily
+            order weed online safely & discreetly and have it delivered to your home. When you order from us,
+            you are always guaranteed only the very best quality weed, thanks to our unique collaboration with the best and most famous coffee shop chain from Amsterdam.
+            As a result,
+            everyone in the Netherlands, Belgium,
+            France and Germany can now have cannabis delivered at home of 100% coffeeshop quality.
+        </p>
+    </div>
+
+    <div>
+        <h3>Buy Hash</h3>
+        <p>
+            Hash lovers can also easily buy hash at Wiet.store.
+            Despite the fact that our hash range is slightly smaller than the weed range,
+            this does not take away from the fact that what we offer is of absolute top quality.
+            Are you looking for a classic Super Polm Hash , Amnesia Polm Hash or something else,
+            you can order this hash from our menu. Also for hash, every order is always neatly odorless and discreetly packaged and shipped.
+        </p>
+    </div>
+
+    <div>
+        <h3>Order Weed Online</h3>
+        <p>
+            You can easily order weed online by making a choice from our menu. Here you will find a diversity of top quality cannabis varieties, including the popular, Amnesia Haze, Super Silver Haze and Power Plant.
+            After you have simply placed and paid for your order, we will ensure that your weed is delivered to your home.
+        </p>
+    </div>
+</div>
+
+@*frenquently asked questio*@
+<img class="bobWeedBanner" src="~/WeedImg/smallBobBanner.png" />
+<h3>FREQUENTLY ASKED QUESTIONS</h3>
+<div id="faq" class="container">
+    <div class="fax-one">
+        <div>
+            <p>HOW DO I ORDER WEED OR HASH?</p>
+        </div>
+        <div>
+            <p>IS IT SAFE TO ORDER WEED OR HASH?</p>
+        </div>
+        <div>
+            <p>HOW MANY GRAMS OF WEED OR HASH CAN I ORDER?</p>
+        </div>
+    </div>
+
+    <div class="fax-two">
+        <div>
+            <p>WHAT ARE THE PAYMENT OPTIONS</p>
+        </div>
+        <div>
+            <p>HOW IS MY ORDER SHIPPED</p>
+        </div>
+        <div>
+            <p>HOW IS WEED.STORE ACCESSIBLE?</p>
+        </div>
+    </div>
+
+
+</div>
+
+@*cannabis shop*@
+<div id="cannabis-shop" class="container">
+    <h3>CANNABIS SHOP</h3>
+    <p>
+        WietStore is not a traditional cannabis shop as can be seen in the Dutch streets,
+        but an online cannabis shop. At weed store you can only buy weed online.
+        In addition to the many excellent types of weed, we also offer other products. For example,
+        you also have a wide choice of various types of weed, grit and hash.
+    </p>
+
+    <p>
+        One of the many benefits of ordering weed from an online coffee shop is having
+        the weed delivered to your home. This ensures that you no longer
+        have to go out to buy weed. Thanks to this, buying weed online in
+        2020 is more popular than ever before. Curious about what we have to
+        offer as an online weed shop? Then quickly take a look at our weed, hash,
+        grit or cannabis oil menus to see if your favorite strain is among them.
+    </p>
+</div>
+
+@*latest new*@
+<h3 class="text-center">LATEST NEWS</h3>
+<div id="container-latest-news">
+    <div class="box-latest-news">
+        <img src="~/WeedImg/latestNewOne.png" alt="litecoin" />
+        <h2>Buying weed with LiteCoin</h2>
+        <p>With the rise in value of Bitcoin in recent months, paying with bicion has also become relitvely more expensive</p>
+        <a href="#">Read more "</a>
+    </div>
+    <div class="box-latest-news">
+        <img src="/WeedImg/latestNewsTwo.png" alt="Delay postnl" />
+        <h2>Delay at PostNL</h2>
+        <p>As you have undoubtedly noticed by now, there are enormous delays at PostNL. this time it is even so extreme that there</p>
+        <a href="#">Read more "</a>
+    </div>
+    <div class="box-latest-news">
+        <img src="/WeedImg/latestNewsThree.png" alt="Indica & sativa" />
+        <h2>Indica vs Sativa</h2>
+        <p>INDICA VS SATIVA Buying weed online can be a challenge if you can't determine which strain is right for you</p>
+        <a href="#">Read more "</a>
+    </div>
+    <div class="box-latest-news">
+        <img src="/WeedImg/latestNewsFour.png" alt="hash and weed" />
+        <h2>Differnce hash and weed</h2>
+        <p>With the rise in value of Bitcoin in recent months, paying with bicion has also become relitvely more expensive</p>
+        <a href="#">Read more "</a>
+    </div>
+</div>

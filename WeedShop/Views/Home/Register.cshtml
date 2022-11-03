@@ -1,0 +1,39 @@
+﻿@using Infrastructuur.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model UserEntity;
+
+<form asp-action="ValidateRegister" method="post">
+
+    <label asp-for="@Model.FirstName"></label>
+    <input type="text" asp-for="@Model.FirstName"/>
+
+    <label asp-for="@Model.LastName"></label>
+    <input type="text" asp-for="@Model.LastName"/>
+
+
+    <label asp-for="@Model.Password"></label>
+    <input type="password" asp-for="@Model.Password"/>
+
+       <label asp-for="@Model.Email"></label>
+    <input type="email" asp-for="@Model.Email"/>
+
+    <button type="submit">Submit</button>
+</form>
+
+@*
+       public int Id { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        public List<ReviewEntity>? Reviews { get; set; } = new List<ReviewEntity>();
+        public int CardEntityId { get; set; }
+        public CardEntity Card { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+        public string Password { get; set; }*@

@@ -1,0 +1,35 @@
+﻿:root {
+    --weedColor: #83b735;
+}
+.weedGreen {
+    background-color: var(--weedColor);
+    color: white;
+}
+.shop {
+    padding: 2em;
+    display: grid;
+    width: 80%;
+    margin: 0 auto;
+    grid-template-columns: repeat(2,1fr);
+    gap: 5em;
+    justify-content: space-around;
+}
+
+.card-total {
+    width: 25em;
+    padding: 2em;
+    border: 4px solid lightgrey;
+}
+
+
+@media screen and (max-width: 1400px) {
+    .shop {
+
+        grid-template-columns: repeat(1,1fr);
+
+    }
+}
+
+@media screen and (max-width: 700px) {
+   
+}

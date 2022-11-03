@@ -1,0 +1,227 @@
+﻿:root {
+    --weedColor: #83b735;
+}
+/*cannabis-banner*/
+.cannabis-banner {
+    width: 100%;
+    height: 25em;
+}
+/*bannertop*/
+.banner-top {
+    display: grid;
+    text-align: center;
+    grid-template-columns: repeat(4,1fr);
+}
+
+    .banner-top div {
+        margin: 2em;
+        min-width: 1em;
+        padding: 2em 2em;
+        border: 1px dotted white;
+        border-radius: 0.8em;
+    }
+
+.title {
+    font-size: 1.2em;
+}
+
+.weedGreen {
+    background-color: var(--weedColor);
+    color: white;
+}
+
+h3 {
+    margin: 2em auto;
+}
+
+h3, p {
+    text-align: center;
+}
+/*mostpopular*/
+
+.most-popular-container {
+    display: grid;
+    text-align: center;
+    padding: 4em;
+}
+
+    .most-popular-container h5 {
+        color: lightgray;
+    }
+
+.most-popular-box-one {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    padding-bottom: 3em;
+}
+
+.price {
+    color: var(--weedColor);
+    font-weight: bold;
+}
+
+.most-popular-container img {
+    width: 15em;
+}
+/*greenbanner*/
+.green-banner {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    margin: 0 auto;
+    background-color: var(--weedColor);
+    color: white;
+}
+
+    .green-banner h3 {
+        font-weight: bold;
+    }
+
+    .green-banner p {
+        padding: 3em;
+    }
+/*freaqaskquestion*/
+.bobWeedBanner {
+    width: 100%;
+}
+
+#faq {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 5em;
+}
+
+    #faq p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--weedColor);
+        padding: 1em 2em;
+        background-color: #efefef;
+        min-height: 7em;
+        cursor: pointer;
+    }
+/*cannabis-shop*/
+#cannabis-shop {
+    margin: 5em auto;
+}
+
+    #cannabis-shop h3 {
+        margin-bottom: 2em;
+    }
+
+/*latest news*/
+#container-latest-news {
+    width: 65%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    justify-content: center;
+    gap: 2em;
+}
+
+.box-latest-news {
+    text-align: center;
+    margin: 0 auto 6em auto;
+    max-width: 20em;
+}
+
+    .box-latest-news img {
+        margin: 0 auto;
+        width: 15em;
+        height: 10em;
+    }
+
+/*card-weed-list*/
+.card-weed-list {
+    display: grid;
+    margin-bottom: 4em;
+    grid-template-columns: repeat(4,1fr);
+    width: 80%;
+    gap: 5em;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.card img {
+    padding: 2em;
+}
+
+.card {
+    min-width: 20em;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1800px) {
+    .card-weed-list {
+        grid-template-columns: repeat(3,1fr);
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    #container-latest-news {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .green-banner {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .most-popular-box-one {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    .banner-top {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .card-weed-list {
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    .card {
+        min-width: 15em;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .card-weed-list {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}
+
+
+@media screen and (max-width: 700px) {
+    #container-latest-news {
+        grid-template-columns: repeat(1,1fr);
+        gap: 10em;
+    }
+
+    #faq {
+        grid-template-columns: repeat(1,1fr);
+    }
+
+    .green-banner {
+        grid-template-columns: repeat(1,1fr);
+    }
+
+    .most-popular-box-one {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .banner-top {
+        grid-template-columns: repeat(1,1fr);
+    }
+
+    .card-weed-list {
+        grid-template-columns: repeat(1,1fr);
+
+
+    }
+
+    .card {
+        margin: 0 auto;
+
+        width: 100%;
+    }
+}

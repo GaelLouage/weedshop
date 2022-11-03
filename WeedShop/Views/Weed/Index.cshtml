@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Infrastructuur.Models.WeedEntity>
+
+@{
+    ViewData["Title"] = "Index";
+      <link rel="stylesheet" href="~/css/latestNewsStyle.css" asp-append-version="true" />
+}
+
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a class="btn btn-success" asp-action="Create">Create New</a>
+    </p>
+}
+   <div class="card-weed-list">
+
+
+@foreach (var item in Model)
+{
+ 
+    <div class="card" style="width:35%">
+        <img src="@Html.DisplayFor(modelItem => item.ImageFileLocation)" />
+        <div class="card-body">
+            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+            <hr>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.Info)</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">THC: @Html.DisplayFor(modelItem => item.THC)</li>
+            <li class="list-group-item">Price/gram: @Html.DisplayFor(modelItem => item.Price) €</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+        
+@if (User.IsInRole("Admin"))
+        {
+        <div class="card-body">
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new {  id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new {  id = item.Id })
+        </div>
+        }
+                     <form asp-controller="Weed" asp-action="Index">
+        <div class="card-footer d-flex justify-content-center">
+
+            <span id="min" class="btn weedGreen btn-lg" onclick="decreaseValue(@item.Id)">-</span>
+            
+                   <input type="number" hidden name="WeedId" value="@item.Id">
+            <input type="number" class="w-25" id="theAmount" value="0"  name="AmountItemToAdd">
+       
+            <span id="plus" class="btn weedGreen btn-lg" onclick="increaseValue(@item.Id)">+</span>
+        </div>
+             <button type="submit" class="btn btn-lg weedGreen w-100">Add to chart</button>
+        </form>
+        
+       
+            
+       
+    </div>
+   
+}
+   </div>
+<script>
+    var minus = document.querySelectorAll("#min");
+    var amount = document.querySelectorAll("#theAmount");
+    var plus = document.querySelectorAll("#plus");
+
+
+    function decreaseValue(index) {
+        if (amount[index - 1].value > 0) {
+            amount[index - 1].value--;
+        }
+    }
+    function increaseValue(index) {
+        amount[index - 1].value++;
+    }
+</script>

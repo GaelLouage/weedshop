@@ -1,0 +1,70 @@
+﻿@using Infrastructuur.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+        double totalSum = 0;
+              <link rel="stylesheet" href="~/css/shoppinCart.css" asp-append-version="true" />
+}
+@model  UserEntity
+@functions {
+    string PricePerAmount(int count, double price) => (count * price).ToString("F2");
+
+}
+<style>
+   
+</style>
+<div class="shop">
+
+<div>
+
+<table class="table">
+  <thead>
+    <tr>
+
+       <th scope="col"></th>
+      <th scope="col"><strong>PRODUCT</strong></th>
+      <th scope="col"><strong>PRICE</strong></th>
+      <th scope="col"><strong>AMOUNT</strong></th>
+      <th scope="col"><strong>SUBTOTAL</strong></th>
+            <th scope="col"><strong>REMOVE</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach(var item in @Model.Weeds.GroupBy(x => x.Name))
+        {
+         <tr>
+            <td class="delete-shop-item">X</td>
+            <td><img class="w-25" src="~/@item.FirstOrDefault().ImageFileLocation"/></td>
+            <td>@item.FirstOrDefault().Name</td>
+            <td>€ @item.FirstOrDefault().Price.ToString("F2")</td>
+            <td>@item.Count()</td>
+            <td>€ @PricePerAmount(item.Count(), @item.FirstOrDefault().Price)</td>
+            <td><a asp-action="RemoveWeed" asp-route-id="@item.FirstOrDefault().Id">Remove</a></td>
+          </tr>
+          totalSum += item.Count() * @item.FirstOrDefault().Price;
+        }
+  </tbody>
+</table>
+</div>
+
+
+@*card totals*@
+<div class="card-total">
+<h4>CART TOTALS</h4>
+<div>
+    <div class="dispatch">
+        <p><strong>Dispatch</strong></p>
+         @*TODO set addres of user*@
+                
+                    <p>Enter your address to view shipping options.</p>
+               
+
+    </div>
+
+<hr />
+<p><strong>Total: @totalSum.ToString("F2")</strong></p>
+<button type="submit" class="weedGreen btn btn-lg  w-100">CONTINUE TO CHECKOUT</button>
+</div>
+</div>
+</div>
