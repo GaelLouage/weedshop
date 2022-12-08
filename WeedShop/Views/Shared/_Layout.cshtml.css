@@ -1,5 +1,12 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+:root {
+    --weedColor: #83b735;
+}
+.weedGreen {
+    background-color: var(--weedColor);
+    color: white;
+}
 * {
     margin: 0;
     padding: 0;
@@ -49,4 +56,37 @@ button.accept-policy {
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+}
+.rights {
+    position: absolute;
+    right: 10em;
+}
+.bg-black {
+    background-color:black;
+}
+.fg-white {
+    color:white;
+}
+.fg-weedGreen {
+    color: var(--weedGreen);
+}
+.shoppie-cart {
+    position:absolute;
+    right: 4em;
+    top: 0.7em;
+}
+.rights-amount {
+    position: absolute;
+    background-color: var(--weedColor);
+    padding: 2px 9px;
+    border-radius: 50%;
+    right: 3em;
+    z-index: 3;
+    top: 0.7em;
+}
+@media screen and (max-width: 700px) {
+    .lefts {
+        position: relative;
+     
+    }
 }

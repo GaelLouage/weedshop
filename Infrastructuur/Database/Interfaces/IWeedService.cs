@@ -11,8 +11,9 @@ namespace Infrastructuur.Database.Interfaces
     {
         List<WeedEntity> GetAllWeeds();
 
-        WeedEntity GetWeedById(int id);
+        Task<WeedEntity> GetWeedByIdAsync(int id);
         WeedEntity CreateWeed(WeedEntity weed);
         void DeleteWeedById(int id);    
+        WeedEntity UpdateWeed(WeedEntity weed);
     }
 }

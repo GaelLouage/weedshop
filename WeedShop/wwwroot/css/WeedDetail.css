@@ -1,0 +1,7 @@
+﻿:root {
+    --weedColor: #83b735;
+}
+
+.weedColor {
+    background-color: var(--weedColor);
+}

@@ -2,6 +2,7 @@
 using Infrastructuur.Database.Interfaces;
 using Infrastructuur.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,37 +14,50 @@ namespace Infrastructuur.Database.Classes
     [Authorize(Roles = "Admin")]
     public class WeedService : IWeedService
     {
-        private readonly WeedDatabase _weedDatabase;
-
-        public WeedService(WeedDatabase weedDatabase)
+     
+        private readonly WeedDbContext _weedDbContext;
+        public WeedService( WeedDbContext weedDbContext)
         {
-            _weedDatabase = weedDatabase;
+            _weedDbContext = weedDbContext;
         }
 
         public WeedEntity CreateWeed(WeedEntity weed)
         {
-            weed.Id = _weedDatabase.Weeds.Max(x => x.Id) + 1;
-            _weedDatabase.Weeds.Add(weed);
+            _weedDbContext.Weeds.Add(weed);
+            _weedDbContext.SaveChanges();
             return weed;
         }
 
         public void DeleteWeedById(int id)
         {
-            _weedDatabase.Weeds.Remove(_weedDatabase.Weeds.FirstOrDefault(x => x.Id == id));
+            _weedDbContext.Weeds.Remove(_weedDbContext.Weeds.FirstOrDefault(x => x.Id == id));
+            _weedDbContext.SaveChanges();
         }
-
-   
-
         public List<WeedEntity> GetAllWeeds()
         {
-            return _weedDatabase.Weeds;
+            return _weedDbContext.Weeds.ToList();
         }
 
-        public WeedEntity GetWeedById(int id)
+        public async Task<WeedEntity> GetWeedByIdAsync(int id)
         {
-            return _weedDatabase.Weeds.FirstOrDefault(x => x.Id == id);
+            return await _weedDbContext.Weeds.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public WeedEntity UpdateWeed(WeedEntity weed)
+        {
+            var weedM = _weedDbContext.Weeds.FirstOrDefault(x => x.Id == weed.Id);
+            
+            weedM.THC = weed.THC;
+            weedM.Name = weed.Name;
+            weedM.Price = weed.Price;
+            weedM.ImageFileLocation = weed.ImageFileLocation;
+            weedM.Info = weed.Info;
+            weedM.TypeProduct = weed.TypeProduct;
 
+            _weedDbContext.Weeds.Update(weedM);
+            _weedDbContext.SaveChanges();
+            return weed;
+        }
     }
+ 
 }

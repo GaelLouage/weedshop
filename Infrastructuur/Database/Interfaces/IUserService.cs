@@ -8,19 +8,22 @@ using System.Threading.Tasks;
 namespace Infrastructuur.Database.Interfaces
 {
     public  interface IUserService
-    {
-        UserEntity GetUser(string firstName, string password);
+    { 
+        Task<List<UserEntity>> GetAllUsersAsync();
+        Task<UserEntity> GetUserAsync(string firstName, string password);
 
-        UserEntity CreateUser(UserEntity user);
-        List<UserEntity> GetAllUsers();
+        Task CreateUserAsync(UserEntity user);
+ 
 
-        UserEntity GetUserById(int id);
+        Task<UserEntity> GetUserByIdAsync(int id);
 
-        void DeleteUser(int id);    
+        Task DeleteUserAsync(int id);    
 
-        void AddWeedsToUser(int userId,WeedEntity weed);
-        UserEntity GetUserByEmail(string email);
-        void DeleteWeeds(int userId, int id);
-
+        Task AddWeedsToUserAsync(int userId,WeedEntity weed);
+        Task<UserEntity> GetUserByEmailAsync(string email);
+        void DeleteWeeds(int userId, int weedId);
+        Task<UserEntity> UpdateUserAsync(int userId, UserEntity user);
+        Task<List<WeedEntity>> GetWeedFromUserByUserId(int id);
+       
     }
 }

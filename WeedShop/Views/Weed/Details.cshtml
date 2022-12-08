@@ -1,7 +1,10 @@
-﻿@model Infrastructuur.Models.WeedEntity
+﻿@using Infrastructuur.Models
+@model Infrastructuur.Models.WeedEntity
 
 @{
     ViewData["Title"] = "Details";
+    <link rel="stylesheet" href="~/css/WeedDetail.css" asp-append-version="true" />
+    var weedReviews = ViewData["Reviews"] as List<ReviewEntity>;
 }
 
 <h1>Details</h1>
@@ -49,10 +52,15 @@
     </dl>
 </div>
 <div>
-            
- 
-       @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-
-
+     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     <a asp-action="Index">Back to List</a>
 </div>
+<div>
+    @Html.ActionLink("Add Comment", "Review", new { id = Model.Id })
+  @*  <a asp-action="Review" class="btn weedColor text-white btn-lg">Add comment</a>*@
+</div>
+
+        @foreach(var weedReview in weedReviews.Where(x => x.WeedId == @Model.Id)) {
+            <p><strong>@weedReview.UserName</strong></p>
+            <p>@weedReview.ReviewText</p>
+        }

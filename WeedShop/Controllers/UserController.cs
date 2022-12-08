@@ -1,6 +1,5 @@
 ﻿using Infrastructuur.Database.Interfaces;
 using Infrastructuur.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WeedShop.Controllers
@@ -12,33 +11,29 @@ namespace WeedShop.Controllers
         {
             _userService = userService;
         }
-
         // GET: UserController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(_userService.GetAllUsers());
+            return View(await _userService.GetAllUsersAsync());
         }
-
         // GET: UserController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View(_userService.GetUserById(id));
+            return View(await _userService.GetUserByIdAsync(id));
         }
-
         // GET: UserController/Create
         public ActionResult Create()
         {
             return View();
         }
-
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserEntity user)
+        public async Task<ActionResult> Create(UserEntity user)
         {
             try
             {
-                _userService.CreateUser(user);
+                await _userService.CreateUserAsync(user);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -46,25 +41,20 @@ namespace WeedShop.Controllers
                 return View();
             }
         }
-
         // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View(_userService.GetUserById(id));
+            return View(await _userService.GetUserByIdAsync(id));
         }
-
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, UserEntity user)
+        public async Task<ActionResult> Edit(int id, UserEntity user)
         {
             try
             {
-                var userToEdit = _userService.GetUserById(id);
-                userToEdit.FirstName = user.FirstName;
-                userToEdit.LastName = user.LastName;
-                userToEdit.Email = user.Email;
-                userToEdit.Role = user.Role;
+                var userToEdit =  await _userService.UpdateUserAsync(id, user);
+            
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -72,21 +62,19 @@ namespace WeedShop.Controllers
                 return View();
             }
         }
-
         // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View(_userService.GetUserById(id));
+            return View(await _userService.GetUserByIdAsync(id));
         }
-
         // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, UserEntity user)
+        public async Task<ActionResult> Delete(int id, UserEntity user)
         {
             try
             {
-                _userService.DeleteUser(id);
+                await _userService.DeleteUserAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

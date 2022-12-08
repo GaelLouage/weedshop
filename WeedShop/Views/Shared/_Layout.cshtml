@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Infrastructuur.Models
+@using WeedShop.Controllers
+@{
+    var weedsFromUser = ViewData["WeedsFromUser"] as List<WeedEntity>;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,13 +12,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WeedShop.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
         <nav class="black-background navbar navbar-expand-sm navbar-toggleable-sm py-2 navbar-light bg-dark text-white border-bottom box-shadow">
             <div class="container-fluid">
-               <a asp-controller="Home" asp-action="Index"><img src="/WeedImg/weedLogo.png" alt="WeedShop" class="logo"/></a>
-               @* <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">WeedShop</a>*@
+                <a asp-controller="Home" asp-action="Index"><img src="/WeedImg/weedLogo.png" alt="WeedShop" class="logo" /></a>
+                @* <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">WeedShop</a>*@
                 <button class="navbar-toggler navbar-light weedGreen" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon text-white navbar-light"></span>
@@ -27,28 +33,40 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Weed" asp-action="Index">WeedList</a>
-                            </li>
-                        @*set isinrole for admin*@
-                        @if (User.IsInRole("Admin"))
-                        {
-                            
-                                <li class="nav-item">
-                                <a class="nav-link text-white bg-success" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                            </li>
-                        }
+                            <a class="nav-link text-white" asp-area="" asp-controller="Weed" asp-action="Index">WeedList</a>
+                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <p>Welcome @User.Identity.Name</p>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                            </li>
+                            <div class="dropdown rights">
+                                <button class="bg-black fg-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @User.Identity.Name
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+
+                                    <li class="nav-item  rights-logout">
+                                        <a class="nav-link fg-weedGreen" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                                    </li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <hr />
+                                        <li class="fg-weedGreen nav-link ">
+                                            Admin menu
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link fg-weedGreen" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
                             @*shoppingcart*@
-                              <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ShoppingCart">ShoppingCart</a>
+                            <li class="nav-item text-light shoppie-cart">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ShoppingCart"><i class="fa fa-shopping-cart" style="font-size:2em;color:white;"></i></a>
                             </li>
+                            @if (@HomeController.userLogin is not null && weedsFromUser is not null && weedsFromUser.Count > 0)
+                            {
+                              <span class="rights-amount">@weedsFromUser.OrderBy(x => x.Name).Count()</span>
+                            }
                         }
                         else
                         {
@@ -59,7 +77,6 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
                             </li>
                         }
-
                     </ul>
                 </div>
             </div>

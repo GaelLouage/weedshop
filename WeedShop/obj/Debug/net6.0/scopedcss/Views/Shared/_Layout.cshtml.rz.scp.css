@@ -1,5 +1,12 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+:root[b-m1aopy25be] {
+    --weedColor: #83b735;
+}
+.weedGreen[b-m1aopy25be] {
+    background-color: var(--weedColor);
+    color: white;
+}
 *[b-m1aopy25be] {
     margin: 0;
     padding: 0;
@@ -49,4 +56,37 @@ button.accept-policy[b-m1aopy25be] {
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+}
+.rights[b-m1aopy25be] {
+    position: absolute;
+    right: 10em;
+}
+.bg-black[b-m1aopy25be] {
+    background-color:black;
+}
+.fg-white[b-m1aopy25be] {
+    color:white;
+}
+.fg-weedGreen[b-m1aopy25be] {
+    color: var(--weedGreen);
+}
+.shoppie-cart[b-m1aopy25be] {
+    position:absolute;
+    right: 4em;
+    top: 0.7em;
+}
+.rights-amount[b-m1aopy25be] {
+    position: absolute;
+    background-color: var(--weedColor);
+    padding: 2px 9px;
+    border-radius: 50%;
+    right: 3em;
+    z-index: 3;
+    top: 0.7em;
+}
+@media screen and (max-width: 700px) {
+    .lefts[b-m1aopy25be] {
+        position: relative;
+     
+    }
 }

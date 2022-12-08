@@ -1,0 +1,108 @@
+﻿@using Infrastructuur.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    <link rel="stylesheet" href="~/css/billingStyle.css" asp-append-version="true" />
+    double total = 0;
+    var weedsFromUser = ViewData["Weeds"] as List<WeedEntity>;
+}
+
+@model UserEntity
+@functions {
+    string TotalAmountPerWeedType(double amount, double price) => $"€{(amount * price).ToString("F2")}";
+}
+<div class="billing">
+    <div class="billing-container m-lg-5">
+        <form class="billing-form" asp-action="Billing" asp-controller="Home" method="post">
+            <h5>BILLING INFORMATION</h5>
+            <div class="mb-3">
+                <label class="form-label">Firs name*</label>
+                <input type="text" class="form-control" asp-for="@Model.FirstName">
+                <span class="text-danger" asp-validation-for="@Model.FirstName"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Last name*</label>
+                <input type="text" class="form-control" asp-for="@Model.LastName">
+                <span class="text-danger" asp-validation-for="@Model.LastName"></span>
+            </div>
+@*
+            <div class="mb-3">
+                <label class="form-label">Country/Region *</label>
+                <input type="text" class="form-control" asp-for="@Model.Addresses[0].Country">
+                <span class="text-danger" asp-validation-for="@Model.Addresses[0].Country"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">City *</label>
+                <input type="text" class="form-control" asp-for="@Model.Addresses[0].City">
+                <span class="text-danger" asp-validation-for="@Model.Addresses[0].City"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Postal code *</label>
+                <input type="text" class="form-control" asp-for="@Model.Addresses[0].PostalCode">
+                <span class="text-danger" asp-validation-for="@Model.Addresses[0].PostalCode"></span>
+            </div>
+
+         
+                <div class="mb-3">
+                    <label class="form-label">Street *</label>
+                    <input type="text" class="form-control" asp-for="@Model.Addresses[0].Address">
+                    <span class="text-danger" asp-validation-for="@Model.Addresses[0].Address"></span>
+                </div>
+                <div class="mb-3 w-25">
+                    <label class="form-label">Address number</label>
+                    <input type="text" class="form-control" asp-for="@Model.Addresses[0].AddressNumber">
+                    <span class="text-danger" asp-validation-for="@Model.Addresses[0].AddressNumber"></span>
+                </div>*@
+          
+
+
+
+
+
+            <div class="mb-3">
+                <label class="form-label">E-mail address *</label>
+                <input type="email" class="form-control" asp-for="@Model.Email">
+                <span class="text-danger" asp-validation-for="@Model.Email"></span>
+            </div>
+            <button type="submit" class="btn weedColor w-100 text-white">PLACE ORDER AND PAY</button>
+        </form>
+        <div class="billing-right">
+            <h5>YOUR ORDER</h5>
+            <div class="right-box">
+                <div class="tittles">
+                    <h6>PRODUCT</h6>
+                    <h6>SUBTOTAL</h6>
+                </div>
+                <hr />
+                @foreach (var item in @weedsFromUser.GroupBy(x => x.Name).ToList())
+                {
+                    <div class="weed-items">
+                        <p>@item.Key x @item.Count()</p>
+                        <p>@TotalAmountPerWeedType(item.FirstOrDefault(x => x.Name == item.Key).Price , @item.Count())</p>
+                    </div>
+                    total += @item.FirstOrDefault(x => x.Name == item.Key).Price * @item.Count();
+                }
+                <hr />
+                <div class="dispatch">
+                    <p><strong>Dispatch</strong></p>
+                    <div class="box-info">
+          @*              <p>@Model.Addresses[0].Country</p>
+                        <p>@Model.Addresses[0].City @Model.Addresses[0].PostalCode</p>
+                        <p>@Model.Addresses[0].Address @Model.Addresses[0].AddressNumber</p>*@
+                    </div>
+                </div>
+                <hr />
+                <div class="total">
+                    <p><strong>Total:</strong></p>
+                    <p>€ @total</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

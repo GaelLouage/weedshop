@@ -1,0 +1,66 @@
+﻿:root {
+    --weedColor: #83b735;
+}
+h5 {
+    margin: 2em 0;
+}
+.billing {
+    width: 80%;
+    margin:5em auto;
+}
+.weedColor {
+    background-color: var(--weedColor);
+}
+.billing-container {
+    display: flex;
+    gap: 5em;
+    justify-items: center;
+}
+.billing-form {
+    width: 100%;
+}
+.billing-right {
+    border-radius: 1em;
+    padding: 2em 0;
+    width: 100%;
+    background-color: #f7f7f7;
+}
+.billing-right h5 {
+        text-align: center;
+ }
+.tittles,
+.total, 
+.weed-items {
+    display: flex;
+    justify-content: space-between;
+}
+.right-box {
+    background-color:white;
+    padding: 2em;
+    width: 80%;
+    margin:0 auto;
+}
+
+
+.dispatch {
+    display: flex;
+    line-height: 0.5em;
+    justify-content:space-between;
+}
+.box-info{
+    display:block;
+}
+.total {
+    align-items:center;
+}
+.total p:last-of-type{
+    color: var(--weedColor);
+    font-size:1.5em;
+    font-weight:bold;
+}
+
+@media only screen and (max-width: 1200px) {
+    .billing-container {
+       flex-direction: column-reverse;
+    }
+}

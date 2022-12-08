@@ -1,28 +1,69 @@
+:root {
+    --weedColor: #83b735;
+}
+
+.weedGreen {
+    background-color: var(--weedColor);
+    color: white;
+}
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
     margin-bottom: 60px;
     background-color: #ffffff;
-
 }
 
-.logo   {
-    width:4em;
+.logo {
+    width: 4em;
 }
 
 .black-background {
     background-color: black !important;
+}
+
+.loginC {
+    width: 80%;
+    margin: 9em auto;
+}
+
+.registerC {
+    background-color: lightgrey;
+    color: white;
+    margin-top: 2em;
+}
+.second-con {
+    margin-top: 5em;
+}
+@media only screen and (min-width: 1000px) {
+    .loginC {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 5em;
+        margin: 15em auto;
+    }
+
+        .loginC div{
+            align-self: center;
+        }
+
+        .second-con {
+            align-self: center;
+            border-left: 1px solid black;
+            padding-left: 5em;
+            margin-top: 0;
+        }
 }

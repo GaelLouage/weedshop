@@ -1,0 +1,46 @@
+﻿@using Infrastructuur.Models
+@{
+    var user =  ViewData["User"] as UserEntity;
+    var weed = ViewData["Weed"] as WeedEntity;
+}
+@model ReviewEntity
+@if(string.IsNullOrEmpty(@user.FirstName))
+{
+        <p>Emtpy user</p>
+}
+<p>@user.Email</p>
+
+
+<form asp-action="ReviewPost" method="post">
+  <div class="form-group">
+    <label asp-for="@Model.UserName">UserName</label>
+    <input type="text" class="form-control" asp-for="@Model.UserName" placeholder="@user.FirstName" value="@user.FirstName" hidden>
+ 
+  </div>
+
+   <div class="form-group">
+    <label asp-for="@Model.UserId">userid</label>
+    <input type="text" class="form-control" asp-for="@Model.UserId" placeholder="@user.Id" value="@user.Id" hidden>
+  </div>
+
+   <div class="form-group">
+    <label asp-for="@Model.WeedId">weedid</label>
+    <input type="text" class="form-control" asp-for="@Model.WeedId" placeholder="@weed.Id" value="@weed.Id" hidden>
+  </div> 
+  
+    <div class="form-group">
+    <label asp-for="@Model.ReviewText">ReviewText</label>
+    <input type="text" class="form-control" asp-for="@Model.ReviewText">
+  </div> 
+
+  <select class="form-select" aria-label="Default select example" asp-for="@Model.Rating">
+  <option selected>Open this select menu</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+</select>
+    
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

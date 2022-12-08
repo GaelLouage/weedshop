@@ -3,11 +3,37 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    <link rel="stylesheet" href="~/css/latestNewsStyle.css" asp-append-version="true" />
 }
-@model UserEntity
 
-<form asp-action="Validate" method="post">
-  <input type="text" asp-for="@Model.FirstName"/>
-  <input type="text" asp-for="@Model.Password"/>
-  <button type="submit">Login</button>
-</form>
+@model UserEntity
+<div class="loginC">
+
+
+    <div>
+        <h4>LOGIN</h4>
+        <form asp-action="Validate" method="post">
+            <div class="form-group">
+                <label asp-for="@Model.FirstName">First Name</label>
+                <input class="form-control" type="text" asp-for="@Model.FirstName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Password">Password</label>
+                <input class="form-control" type="password" asp-for="@Model.Password" />
+            </div>
+            <button class="btn weedGreen  btn-lg text-white w-100 mt-5" type="submit">SIGN IN</button>
+        </form>
+    </div>
+    
+    <div class="second-con">
+        <h4 class="text-center">REGISTER</h4>
+        <p>
+            Registering for this site gives you access to your order status and history.
+            Just fill in the fields below and we'll set up a new account for you in no time.
+            We will only ask you for information that is necessary to make the
+            purchasing process faster and easier.
+        </p>
+        <a asp-action="Register" class="btn btn-lg w-100 registerC">REGISTER</a>
+    </div>
+
+</div>
