@@ -60,6 +60,12 @@ h3, p {
     font-weight: bold;
 }
 
+.categories {
+    display: flex;
+    width: 95%;
+    margin: 0 auto;
+}
+
 .most-popular-container img {
     width: 15em;
 }
@@ -83,6 +89,16 @@ h3, p {
 .bobWeedBanner {
     width: 100%;
 }
+
+.searchForm {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+    .searchForm input {
+        width: 25em;
+    }
 
 #faq {
     display: grid;
@@ -139,6 +155,7 @@ h3, p {
     width: 80%;
     gap: 5em;
     margin: 0 auto;
+    justify-content: flex-end;
     text-align: center;
 }
 
@@ -187,7 +204,6 @@ h3, p {
     .card-weed-list {
         grid-template-columns: repeat(2,1fr);
     }
-
 }
 
 
@@ -215,13 +231,22 @@ h3, p {
 
     .card-weed-list {
         grid-template-columns: repeat(1,1fr);
+    }
 
+    .categories {
+        display: flex;
+        flex-direction: column;
+    }
 
+    .categories-box-one {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .card {
         margin: 0 auto;
-
         width: 100%;
     }
 }

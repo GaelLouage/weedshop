@@ -14,9 +14,12 @@ namespace Infrastructuur.Database.Classes
     {
         private readonly WeedDbContext _weedDbContext;
 
-        public UserService(WeedDbContext weedDatabase)
+        private readonly IWeedService _weedService;
+        public UserService(WeedDbContext weedDatabase, IWeedService weedService)
         {
             _weedDbContext = weedDatabase;
+
+            _weedService = weedService;
         }
 
         public async Task AddWeedsToUserAsync(int userId, WeedEntity weed)
@@ -28,24 +31,25 @@ namespace Infrastructuur.Database.Classes
             {
 
             }
-            //userWeed.UserId = user.Id;
-            //userWeed.User = user;
-            //userWeed.Weed = weed;
-            //userWeed.WeedId = weed.Id;
             _weedDbContext.UserWeeds.Add(new UserWeedEntity
             {
                 UserId = userId,
                 WeedId = weed.Id
             });
-           //user.Weeds.Add(weed);
              _weedDbContext.SaveChanges();    
         }
 
-        public async Task CreateUserAsync(UserEntity user)
+        public async Task<bool> CreateUserAsync(UserEntity user)
         {
             user.Role = "User";
-             _weedDbContext.Users.Add(user);
-            await _weedDbContext.SaveChangesAsync();
+            var users = await _weedDbContext.Users.ToListAsync();
+            if(!users.Any(x => x.Email == user.Email || (x.FirstName == user.FirstName  && x.LastName == user.LastName)))
+            {
+                _weedDbContext.Users.Add(user);
+                await _weedDbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task DeleteUserAsync(int id)
@@ -66,7 +70,6 @@ namespace Infrastructuur.Database.Classes
             {
                 _weedDbContext.UserWeeds.Remove(weedToRemove);
             }
-            
             _weedDbContext.SaveChanges();
         }
 
@@ -134,6 +137,12 @@ namespace Infrastructuur.Database.Classes
             _weedDbContext.Users.Update(user);
             await _weedDbContext.SaveChangesAsync();
             return user;
+        }
+
+        public async Task AddReviewToWeedAsync(ReviewEntity review)
+        {
+            _weedDbContext.Reviews.Add(review);
+            await _weedDbContext.SaveChangesAsync();
         }
     }
 }

@@ -18,7 +18,9 @@ namespace WeedShop.Controllers
         private readonly IUserService _userService;
 
         private readonly IWeedService _weedService;
-        public static UserEntity? userLogin = null;
+        //public static UserEntity? userLogin = null;
+        public static List<WeedEntity>? weedsFromUser = new List<WeedEntity>();
+        public static string userFailedRegister;
         public HomeController(ILogger<HomeController> logger, IUserService userService, IWeedService weedService)
         {
             _logger = logger;
@@ -27,13 +29,17 @@ namespace WeedShop.Controllers
         }
         public async  Task<IActionResult> Index()
         {
+           // weedsFromUser = null;
             var weedsPopular = ( _weedService.GetAllWeeds()).ToList();
             ViewData["MostPopularWeed"] = weedsPopular.Skip(1).Take(5).ToList();
             ViewData["MostPopularHash"] = weedsPopular.Skip(6).Take(5).ToList();
 
-            userLogin = await _userService.GetUserByEmailAsync(HttpContext.User?.FindFirst(ClaimTypes.Email)?.Value);
-            ViewData["WeedsFromUser"] = await _userService.GetWeedFromUserByUserId(userLogin.Id);
-
+            var userLogin = await _userService.GetUserByEmailAsync(HttpContext.User?.FindFirst(ClaimTypes.Email)?.Value);
+            if(userLogin is not null)
+            {
+                weedsFromUser = await _userService.GetWeedFromUserByUserId(userLogin.Id);
+                ViewData["WeedsFromUser"] = weedsFromUser;
+            }
             return View();
         }
         public IActionResult Privacy()
@@ -48,6 +54,7 @@ namespace WeedShop.Controllers
         [HttpGet("login")]
         public IActionResult Login()
         {
+            userFailedRegister = null;
             return View();
         }
         [HttpPost("login")]
@@ -59,7 +66,7 @@ namespace WeedShop.Controllers
             var userHashOne = sha1.ComputeHash(userPasswordData);
 
             user.Password =  Convert.ToBase64String(userHashOne);
-            userLogin  = await _userService.GetUserAsync(user.FirstName,user.Password);
+            var  userLogin  = await _userService.GetUserAsync(user.FirstName,user.Password);
 
             if (userLogin is null) return NotFound();
           
@@ -90,7 +97,7 @@ namespace WeedShop.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            userLogin = null;
+            
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index");
         }
@@ -99,7 +106,7 @@ namespace WeedShop.Controllers
             return View();
         }
         [HttpPost]
-        public  IActionResult ValidateRegister(UserEntity user)
+        public  async Task<IActionResult> ValidateRegister(UserEntity user)
         {
             try
             {
@@ -110,7 +117,12 @@ namespace WeedShop.Controllers
         
                 var two = Convert.ToBase64String(userHashOne);
                 user.Password = two;
-                _userService.CreateUserAsync(user);
+               if(!await _userService.CreateUserAsync(user))
+               {
+                    userFailedRegister =  $"A user with {user.Email} already exist.";
+                    //return RedirectToAction("Register");
+                    return RedirectToAction("Register");
+               }
             } catch(Exception ex)
             {
                 _logger.LogError(ex.ToString());
@@ -121,12 +133,20 @@ namespace WeedShop.Controllers
         [HttpGet]
         public async Task<IActionResult> ShoppingCart()
         {
-            var user = await _userService.GetUserByEmailAsync(HttpContext.User.FindFirst(ClaimTypes.Email).Value);
+             var user = await _userService.GetUserByEmailAsync(HttpContext.User.FindFirst(ClaimTypes.Email).Value);
+          
             if (user is null)
             {
 
             }
-            ViewData["WeedsFromUser"] = await _userService.GetWeedFromUserByUserId(user.Id);
+            var weedsFromUser = await _userService.GetWeedFromUserByUserId(user.Id);
+            if (HomeController.weedsFromUser is not null)
+            {
+                ViewData["WeedsFromUser"] = weedsFromUser;
+
+
+            }
+
             return View(user);
         }
         public async Task<IActionResult> RemoveWeed(int id)

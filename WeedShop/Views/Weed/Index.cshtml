@@ -12,19 +12,19 @@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        <a class="btn btn-success" asp-action="Create">Create New</a>
+        <a class="btn weedGreen" asp-action="Create">Create New WeedEntity</a>
     </p>
 }
-<div>
+
+@*search form for weed by name*@
+<form class="searchForm" asp-controller="Weed" asp-action="Search" method="post">
+    <input type="text"  name="searchWeedByName" />
+    <button type="submit" class="btn weedGreen">Search</button>
+</form>
+<div class="categories">
+<div class="categories-box-one">
     <h4>Categories</h4>
     <form asp-controller="Weed" asp-action="PostIndex">
-       
-           @* <input type="text" value="weed" name="categories">*@
-        @* <select name="categories">
-        <option>@nameof(TypeProduct.WEED)</option>
-        <option>@nameof(TypeProduct.HASH)</option>
-        <option>@nameof(TypeProduct.WEEDOIL)</option>
-    </select>*@
       <div class="form-group">
     <label> @nameof(TypeProduct.WEED)</label>
     <input class="form-check-input" type="checkbox" name="categories" value="@nameof(TypeProduct.WEED)"/>
@@ -46,15 +46,10 @@
         @weeds.Count(x => x.TypeProduct == TypeProduct.WEEDOIL)
     </label>
     </div>
-    <button type="submit">filter</button>
-
-      
+    <button class="btn  weedGreen" type="submit">filter</button>
     </form>
 </div>
-
 <div class="card-weed-list">
-
-
     @foreach (var item in Model)
     {
 
@@ -62,15 +57,14 @@
             <img src="@Html.DisplayFor(modelItem => item.ImageFileLocation)" />
             <div class="card-body">
                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-                <hr>
-                <p class="card-text">@Html.DisplayFor(modelItem => item.Info)</p>
+@*                <hr>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Info)</p>*@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">THC: @Html.DisplayFor(modelItem => item.THC)</li>
                 <li class="list-group-item">Price/gram: @Html.DisplayFor(modelItem => item.Price) €</li>
                 <li class="list-group-item">Vestibulum at eros</li>
             </ul>
-
             @if (User.IsInRole("Admin"))
             {
                 <div class="card-body">
@@ -98,6 +92,7 @@
         </div>
         i++;
     }
+</div>
 </div>
 <script>
     var minus = document.querySelectorAll("#min");

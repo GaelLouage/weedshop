@@ -63,7 +63,7 @@
                             <li class="nav-item text-light shoppie-cart">
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ShoppingCart"><i class="fa fa-shopping-cart" style="font-size:2em;color:white;"></i></a>
                             </li>
-                            @if (@HomeController.userLogin is not null && weedsFromUser is not null && weedsFromUser.Count > 0)
+                            @if (@User.Identity.IsAuthenticated && weedsFromUser is not null && weedsFromUser.Count > 0)
                             {
                               <span class="rights-amount">@weedsFromUser.OrderBy(x => x.Name).Count()</span>
                             }

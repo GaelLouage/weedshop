@@ -5,7 +5,7 @@
 @{
     double totalSum = 0;
     <link rel="stylesheet" href="~/css/shoppinCart.css" asp-append-version="true" />
-     var weesFromUser = ViewData["WeedsFromUser"] as List<WeedEntity>;
+    var weedFromUser = ViewData["WeedsFromUser"] as List<WeedEntity>;
 }
 @model UserEntity
 @functions {
@@ -28,17 +28,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in @weesFromUser.GroupBy(x => x.Name))
+                @if (@weedFromUser is not null && @weedFromUser.Count() > 0)
                 {
-                    <tr>
-                        <td><img class="w-25" src="~/@item.FirstOrDefault().ImageFileLocation" /></td>
-                        <td>@item.FirstOrDefault().Name</td>
-                        <td>€ @item.FirstOrDefault().Price.ToString("F2")</td>
-                        <td>@item.Count()</td>
-                        <td>€ @PricePerAmount(item.Count(), @item.FirstOrDefault().Price)</td>
-                        <td><a asp-action="RemoveWeed" asp-route-id="@item.FirstOrDefault().Id"><i class="fa fa-trash"></i></a></td>
-                    </tr>
-                    totalSum += item.Count() * @item.FirstOrDefault().Price;
+                    @foreach (var item in @weedFromUser.GroupBy(x => x.Name))
+                    {
+                        <tr>
+                            <td><img class="w-25" src="~@item.FirstOrDefault().ImageFileLocation" /></td>
+                            <td>@item.FirstOrDefault().Name</td>
+                            <td>€ @item.FirstOrDefault().Price.ToString("F2")</td>
+                            <td>@item.Count()</td>
+                            <td>€ @PricePerAmount(item.Count(), @item.FirstOrDefault().Price)</td>
+                            <td><a asp-action="RemoveWeed" asp-route-id="@item.FirstOrDefault().Id"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                        totalSum += item.Count() * @item.FirstOrDefault().Price;
+                    }
                 }
             </tbody>
         </table>
@@ -50,13 +53,13 @@
         <div>
             <div class="dispatch">
                 <p><strong>Dispatch</strong></p>
-@*                <p>@Model.Addresses[0].Country</p>
+                @*                <p>@Model.Addresses[0].Country</p>
                 <p>@Model.Addresses[0].City @Model.Addresses[0].PostalCode</p>
                 <p>@Model.Addresses[0].Address @Model.Addresses[0].AddressNumber</p>*@
             </div>
             <hr />
-            <p><strong>Total: @totalSum.ToString("F2")</strong></p>
-            @if ( @weesFromUser.Count > 0)
+            <p><strong>Total: € @totalSum.ToString("F2")</strong></p>
+            @if (@weedFromUser.Count > 0)
             {
                 <a class="weedGreen btn btn-lg  w-100" asp-action="Order" asp-controller="Home" asp-route-id="@Model.Id">CONTINUE TO CHECKOUT</a>
             }

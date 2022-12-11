@@ -45,9 +45,11 @@ body {
     color: white;
     margin-top: 2em;
 }
+
 .second-con {
     margin-top: 5em;
 }
+
 @media only screen and (min-width: 1000px) {
     .loginC {
         display: grid;
@@ -56,14 +58,14 @@ body {
         margin: 15em auto;
     }
 
-        .loginC div{
+        .loginC div {
             align-self: center;
         }
 
-        .second-con {
-            align-self: center;
-            border-left: 1px solid black;
-            padding-left: 5em;
-            margin-top: 0;
-        }
+    .second-con {
+        align-self: center;
+        border-left: 1px solid black;
+        padding-left: 5em;
+        margin-top: 0;
+    }
 }

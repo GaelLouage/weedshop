@@ -5,3 +5,45 @@
 .weedColor {
     background-color: var(--weedColor);
 }
+
+
+.container-detail {
+    display: grid;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: center;
+    grid-template-columns: 1fr;
+}
+.detail-text {
+
+}
+.description-reviews-header {
+    display: flex;
+    gap: 5em;
+    justify-content: center;
+    cursor: pointer;
+}
+.description-reviews-header h5:hover {
+  color: var(--weedColor);
+  transition: 0.5s ease-in;
+}
+.text-description-review {
+    max-width: 25%;
+}
+.container-detail img {
+    align-self: center;
+    width: 80%;
+}
+@media only screen and (max-width: 768px) {
+    /* styles for screens with a width up to 768px go here */
+    .container-detail {
+     
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    /* styles for screens with a width between 769px and 1024px go here */
+    .container-detail {
+        grid-template-columns: repeat(2,1fr);
+    }
+}

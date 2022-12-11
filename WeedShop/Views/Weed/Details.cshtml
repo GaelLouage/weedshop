@@ -5,62 +5,82 @@
     ViewData["Title"] = "Details";
     <link rel="stylesheet" href="~/css/WeedDetail.css" asp-append-version="true" />
     var weedReviews = ViewData["Reviews"] as List<ReviewEntity>;
+    weedReviews = weedReviews.Where(x => x.WeedId == @Model.Id).ToList();
+    string reviewText = "";
+    @foreach (var weedReview in weedReviews.Where(x => x.WeedId == @Model.Id))
+    {
+  
+         reviewText+= $"<p><strong>{@weedReview.UserName}</strong></p><p>{@weedReview.ReviewText}</p>";
+    }
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>WeedEntity</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.THC)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.THC)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageFileLocation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageFileLocation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Info)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Info)
-        </dd>
-    </dl>
-</div>
-<div>
-     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    <a asp-action="Index">Back to List</a>
-</div>
-<div>
-    @Html.ActionLink("Add Comment", "Review", new { id = Model.Id })
-  @*  <a asp-action="Review" class="btn weedColor text-white btn-lg">Add comment</a>*@
+<div class="container-detail">
+    <div>
+        <img src="@Html.DisplayFor(model => model.ImageFileLocation)" />
+    </div>
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.THC)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.THC)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+        </dl>
+        <div>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            <a asp-action="Index">Back to List</a>
+        </div>
+        <div>
+            @Html.ActionLink("Add Comment", "Review", new { id = Model.Id })
+            @*  <a asp-action="Review" class="btn weedColor text-white btn-lg">Add comment</a>*@
+        </div>
+    </div>
 </div>
 
-        @foreach(var weedReview in weedReviews.Where(x => x.WeedId == @Model.Id)) {
-            <p><strong>@weedReview.UserName</strong></p>
-            <p>@weedReview.ReviewText</p>
+
+
+@*description review*@
+<div class="container">
+    <div class="description-reviews-header">
+        <h5 class="description-review" onclick="switchText(0)">DESCRIPTION</h5>
+        <h5 class="description-review" onclick="switchText(1)">REVIEW</h5>
+    </div>
+    <div class="text-description-review">
+    </div>
+</div>
+
+<script>
+    const descriptionReview = document.querySelectorAll(".description-review");
+    const descriptionReviewText = document.querySelector(".text-description-review");
+    descriptionReviewText.innerHTML = "<p>@Html.DisplayFor(model => model.Info)</p>";
+    descriptionReview[1].innerHTML += `(${@weedReviews.Count()})`;
+
+    function switchText(index) {
+        switch (index) {
+            case 0:
+                   descriptionReviewText.innerHTML = "<p>@Html.DisplayFor(model => model.Info)</p>";
+                break;
+            case 1:
+               
+                descriptionReviewText.innerHTML = "@reviewText";
+                break;
+            default:
+                descriptionReviewText.innerHTML = "REVIEWS";
+                break;
         }
+    }
+
+</script>
