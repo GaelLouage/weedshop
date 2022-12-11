@@ -6,14 +6,12 @@
     double totalSum = 0;
     <link rel="stylesheet" href="~/css/shoppinCart.css" asp-append-version="true" />
     var weedFromUser = ViewData["WeedsFromUser"] as List<WeedEntity>;
+    var userAddress =   ViewData["firstUserAddress"] as AddressEntity;
 }
 @model UserEntity
 @functions {
     string PricePerAmount(int count, double price) => (count * price).ToString("F2");
 }
-<style>
-
-</style>
 <div class="shop">
     <div>
         <table class="table">
@@ -51,12 +49,22 @@
         <h4>CART TOTALS</h4>
         <hr />
         <div>
-            <div class="dispatch">
+            @if(userAddress is not null)
+            {
+                <div class="dispatch">
                 <p><strong>Dispatch</strong></p>
-                @*                <p>@Model.Addresses[0].Country</p>
-                <p>@Model.Addresses[0].City @Model.Addresses[0].PostalCode</p>
-                <p>@Model.Addresses[0].Address @Model.Addresses[0].AddressNumber</p>*@
-            </div>
+                <p>@userAddress.Country</p>
+                <p>@userAddress.City @userAddress.PostalCode</p>
+                <p>@userAddress.Address @userAddress.AddressNumber</p>
+                </div>
+            } else
+            {
+                 <div class="dispatch">
+                <p><strong>No address!</strong></p>
+                
+                </div>
+            }
+           
             <hr />
             <p><strong>Total: € @totalSum.ToString("F2")</strong></p>
             @if (@weedFromUser.Count > 0)

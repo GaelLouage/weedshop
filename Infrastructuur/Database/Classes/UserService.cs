@@ -144,5 +144,37 @@ namespace Infrastructuur.Database.Classes
             _weedDbContext.Reviews.Add(review);
             await _weedDbContext.SaveChangesAsync();
         }
+
+        public async Task<UserEntity> AddAddressToUserAsync(int userId,AddressEntity address)
+        {
+            var user = await GetUserByIdAsync(userId);
+            if(user is null || address is null)
+            {
+                // return a dto with an error
+                return null;
+            }
+            _weedDbContext.Addresses.Add(address);
+            await _weedDbContext.SaveChangesAsync();
+
+            var addressToAddToIntersectTable = _weedDbContext.UserAddnresses.Add(new UserAddressEntity
+            {
+                User = user,
+                UserId = userId,
+                Address = address,
+                AddressId = address.Id
+            });
+            await _weedDbContext.SaveChangesAsync();
+            return user;
+        }
+        public async Task<AddressEntity> GetFirstAddressFromUserAsync(int userId)
+        {
+            var userAddressId = (await _weedDbContext.UserAddnresses.FirstOrDefaultAsync(x => x.UserId == userId));
+            var address = await _weedDbContext.Addresses.FirstOrDefaultAsync(x => x.Id == userAddressId.AddressId);
+            if(userAddressId is null || address is null)
+            {
+                return null;
+            }
+            return address;
+        }
     }
 }

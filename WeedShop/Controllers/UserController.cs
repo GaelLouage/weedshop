@@ -1,12 +1,14 @@
 ﻿using Infrastructuur.Database.Interfaces;
 using Infrastructuur.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace WeedShop.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private static UserEntity? user;
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -19,7 +21,13 @@ namespace WeedShop.Controllers
         // GET: UserController/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            return View(await _userService.GetUserByIdAsync(id));
+            var user = await _userService.GetUserByIdAsync(id);
+            if(user is null)
+            {
+                var userByEmail = await _userService.GetUserByEmailAsync(HttpContext.User?.FindFirst(ClaimTypes.Email)?.Value);
+                return View(await _userService.GetUserByIdAsync(userByEmail.Id));
+            }
+            return View(user);
         }
         // GET: UserController/Create
         public ActionResult Create()
@@ -81,6 +89,20 @@ namespace WeedShop.Controllers
             {
                 return View();
             }
+        }
+        // addAddressToUser
+
+        public async Task<ActionResult> AddAddressToUser(int userId)
+        {
+            user = await _userService.GetUserByIdAsync(userId);
+            return View();
+        }
+        [HttpPost]
+     //   [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddAddressToUser(AddressEntity addressVM)
+        {
+            await _userService.AddAddressToUserAsync(user.Id, addressVM);
+            return RedirectToAction("Detail");
         }
     }
 }

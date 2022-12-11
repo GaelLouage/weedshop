@@ -146,7 +146,7 @@ namespace WeedShop.Controllers
 
 
             }
-
+            ViewData["firstUserAddress"] = await _userService.GetFirstAddressFromUserAsync(user.Id);
             return View(user);
         }
         public async Task<IActionResult> RemoveWeed(int id)
@@ -166,6 +166,7 @@ namespace WeedShop.Controllers
         public  async Task<IActionResult> Order(int id)
         {
             ViewData["Weeds"] = await _userService.GetWeedFromUserByUserId(id);
+            ViewData["firstUserAddress"] = await _userService.GetFirstAddressFromUserAsync(id);
             return View(await _userService.GetUserByIdAsync(id));
         }
     }

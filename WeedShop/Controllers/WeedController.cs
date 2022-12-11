@@ -45,7 +45,6 @@ namespace WeedShop.Controllers
                 // to set the icon of amount items on shoppingcart
                 ViewData["WeedsFromUser"] = HomeController.weedsFromUser;
             }
-           
             ViewData["Weeds"] = _weedService.GetAllWeeds();
             return View(_weeds);
         }

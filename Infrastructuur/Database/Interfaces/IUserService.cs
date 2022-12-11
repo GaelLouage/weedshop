@@ -11,21 +11,16 @@ namespace Infrastructuur.Database.Interfaces
     { 
         Task<List<UserEntity>> GetAllUsersAsync();
         Task<UserEntity> GetUserAsync(string firstName, string password);
-
         Task<bool> CreateUserAsync(UserEntity user);
- 
-
         Task<UserEntity> GetUserByIdAsync(int id);
-
         Task DeleteUserAsync(int id);    
-
         Task AddWeedsToUserAsync(int userId,WeedEntity weed);
         Task<UserEntity> GetUserByEmailAsync(string email);
         void DeleteWeeds(int userId, int weedId);
         Task<UserEntity> UpdateUserAsync(int userId, UserEntity user);
         Task<List<WeedEntity>> GetWeedFromUserByUserId(int id);
         Task AddReviewToWeedAsync(ReviewEntity review);
-
-
+        Task<UserEntity> AddAddressToUserAsync(int userId, AddressEntity address);
+        Task<AddressEntity> GetFirstAddressFromUserAsync(int userId);
     }
 }

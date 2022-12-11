@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/css/billingStyle.css" asp-append-version="true" />
     double total = 0;
     var weedsFromUser = ViewData["Weeds"] as List<WeedEntity>;
+     var userAddress =   ViewData["firstUserAddress"] as AddressEntity;
 }
 
 @model UserEntity
@@ -28,36 +29,36 @@
                 <input type="text" class="form-control" asp-for="@Model.LastName">
                 <span class="text-danger" asp-validation-for="@Model.LastName"></span>
             </div>
-@*
+
             <div class="mb-3">
                 <label class="form-label">Country/Region *</label>
-                <input type="text" class="form-control" asp-for="@Model.Addresses[0].Country">
-                <span class="text-danger" asp-validation-for="@Model.Addresses[0].Country"></span>
+                <input type="text" class="form-control" asp-for="@userAddress].Country">
+                <span class="text-danger" asp-validation-for="@userAddress.Country"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">City *</label>
-                <input type="text" class="form-control" asp-for="@Model.Addresses[0].City">
-                <span class="text-danger" asp-validation-for="@Model.Addresses[0].City"></span>
+                <input type="text" class="form-control" asp-for="@userAddress.City">
+                <span class="text-danger" asp-validation-for="@userAddress.City"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Postal code *</label>
-                <input type="text" class="form-control" asp-for="@Model.Addresses[0].PostalCode">
-                <span class="text-danger" asp-validation-for="@Model.Addresses[0].PostalCode"></span>
+                <input type="text" class="form-control" asp-for="@userAddress.PostalCode">
+                <span class="text-danger" asp-validation-for="@userAddress.PostalCode"></span>
             </div>
 
          
                 <div class="mb-3">
                     <label class="form-label">Street *</label>
-                    <input type="text" class="form-control" asp-for="@Model.Addresses[0].Address">
-                    <span class="text-danger" asp-validation-for="@Model.Addresses[0].Address"></span>
+                    <input type="text" class="form-control" asp-for="@userAddress.Address">
+                    <span class="text-danger" asp-validation-for="@userAddress.Address"></span>
                 </div>
                 <div class="mb-3 w-25">
                     <label class="form-label">Address number</label>
-                    <input type="text" class="form-control" asp-for="@Model.Addresses[0].AddressNumber">
-                    <span class="text-danger" asp-validation-for="@Model.Addresses[0].AddressNumber"></span>
-                </div>*@
+                    <input type="text" class="form-control" asp-for="@userAddress.AddressNumber">
+                    <span class="text-danger" asp-validation-for="@userAddress.AddressNumber"></span>
+                </div>
           
 
 
