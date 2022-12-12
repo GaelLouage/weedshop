@@ -140,13 +140,18 @@ namespace WeedShop.Controllers
 
             }
             var weedsFromUser = await _userService.GetWeedFromUserByUserId(user.Id);
+            var addressFromUser =  await _userService.GetFirstAddressFromUserAsync(user.Id);
+            if(addressFromUser is not null)
+            {
+                ViewData["firstUserAddress"] = addressFromUser;
+            }
             if (HomeController.weedsFromUser is not null)
             {
                 ViewData["WeedsFromUser"] = weedsFromUser;
 
 
             }
-            ViewData["firstUserAddress"] = await _userService.GetFirstAddressFromUserAsync(user.Id);
+
             return View(user);
         }
         public async Task<IActionResult> RemoveWeed(int id)
@@ -166,7 +171,9 @@ namespace WeedShop.Controllers
         public  async Task<IActionResult> Order(int id)
         {
             ViewData["Weeds"] = await _userService.GetWeedFromUserByUserId(id);
+
             ViewData["firstUserAddress"] = await _userService.GetFirstAddressFromUserAsync(id);
+          
             return View(await _userService.GetUserByIdAsync(id));
         }
     }

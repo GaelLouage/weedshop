@@ -169,11 +169,12 @@ namespace Infrastructuur.Database.Classes
         public async Task<AddressEntity> GetFirstAddressFromUserAsync(int userId)
         {
             var userAddressId = (await _weedDbContext.UserAddnresses.FirstOrDefaultAsync(x => x.UserId == userId));
-            var address = await _weedDbContext.Addresses.FirstOrDefaultAsync(x => x.Id == userAddressId.AddressId);
-            if(userAddressId is null || address is null)
+            if(userAddressId is null)
             {
                 return null;
             }
+            var address = await _weedDbContext.Addresses.FirstOrDefaultAsync(x => x.Id == userAddressId.AddressId);
+            if (address is null) return null;
             return address;
         }
     }

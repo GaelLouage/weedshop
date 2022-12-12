@@ -27,8 +27,11 @@
   color: var(--weedColor);
   transition: 0.5s ease-in;
 }
-.text-description-review {
-    max-width: 25%;
+.description {
+    text-align: center;
+}
+.review {
+    display:grid;
 }
 .container-detail img {
     align-self: center;

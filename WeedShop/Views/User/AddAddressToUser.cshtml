@@ -1,22 +1,24 @@
 ﻿@using Infrastructuur.Models
+@using WeedShop.Controllers
 @model Infrastructuur.Models.AddressEntity
 
 @{
-  //  ViewData["Title"] = "AddAddressToUser";
+    //  ViewData["Title"] = "AddAddressToUser";
+    // var addresses  = ViewData["addresses"] as IEnumerable<AddressEntity>;
 }
 
-<h1>AddAddressToUser</h1>
+<h1 class="text-center m-5">Add Address</h1>
 
-<h4>AddressEntity</h4>
+
 <hr />
-<div class="row">
+<div class="d-flex justify-content-center">
     <div class="col-md-4">
         <form asp-action="AddAddressToUser">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-       @*     <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
+            @*     <div class="form-group">
+            <label asp-for="Id" class="control-label"></label>
+            <input asp-for="Id" class="form-control" />
+            <span asp-validation-for="Id" class="text-danger"></span>
             </div>*@
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
@@ -39,18 +41,22 @@
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
-                <span asp-validation-for="Country" class="text-danger"></span>
+                <select class="form-select mt-4" asp-items="@UserController.CountriesListItem"></select>
             </div>
+            @*            <div class="form-group">
+            <label asp-for="Country" class="control-label"></label>
+            <input asp-for="Country" class="form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+            </div>*@
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-sm w-100 weedGreen mt-2" />
+            </div>
+            <div>
+                <a class="btn btn-sm w-100 weedGreen mt-2" asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

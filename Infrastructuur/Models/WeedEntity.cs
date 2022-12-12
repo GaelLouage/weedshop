@@ -11,7 +11,9 @@ namespace Infrastructuur.Models
     {
         WEED,
         HASH,
-        WEEDOIL
+        WEEDOIL,
+        GRIT,
+        LONGROLLINGPAPER
     }
     public class WeedEntity 
     {

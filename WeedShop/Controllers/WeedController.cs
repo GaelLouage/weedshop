@@ -2,6 +2,7 @@
 using Infrastructuur.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace WeedShop.Controllers
@@ -15,14 +16,26 @@ namespace WeedShop.Controllers
         private static UserEntity? _user;
         private static WeedEntity? _weed;
         private static List<WeedEntity>? _weeds;
-       
+        public static List<SelectListItem> WeedListTypes = new List<SelectListItem>();
         public WeedController(IWeedService weedService, IFileService fileService, IUserService userService, IReviewService reviewService)
         {
             _weedService = weedService;
             _fileService = fileService;
             _userService = userService;
-            if(_weeds is null)  _weeds = _weedService.GetAllWeeds();
+            if (_weeds is null) _weeds = _weedService.GetAllWeeds();
             _reviewService = reviewService;
+            WeedListTypes = new List<SelectListItem>() {
+              new SelectListItem{ Value = nameof(TypeProduct.WEED),Text = "Weed"},
+               new SelectListItem{ Value = nameof(TypeProduct.HASH),Text = "Hash"},
+                new SelectListItem{ Value = nameof(TypeProduct.WEEDOIL),Text = "Weed oil"},
+                 new SelectListItem{ Value = nameof(TypeProduct.GRIT),Text = "Grit"},
+                     new SelectListItem{ Value = nameof(TypeProduct.LONGROLLINGPAPER),Text = "Long rolling paper"},
+            };
+            //    WEED,
+            //HASH,
+            //WEEDOIL,
+            //GRIT,
+            //LONGROLLINGPAPER
         }
 
         // GET: WeedController
@@ -33,7 +46,7 @@ namespace WeedShop.Controllers
             UserEntity user = null;
             if (User.Identity.IsAuthenticated)
             {
-                 user = await _userService.GetUserByEmailAsync(HttpContext.User.FindFirst(ClaimTypes.Email).Value);
+                user = await _userService.GetUserByEmailAsync(HttpContext.User.FindFirst(ClaimTypes.Email).Value);
                 if (AmountItemToAdd > 0 && AmountItemToAdd != null)
                 {
                     var weed = await _weedService.GetWeedByIdAsync(weedId);
@@ -67,32 +80,34 @@ namespace WeedShop.Controllers
                     _weeds = _weedService.GetAllWeeds();
                     break;
             }
-            return RedirectToAction("Index",_weeds);
+            return RedirectToAction("Index", _weeds);
         }
         public IActionResult Search(string searchWeedByName)
         {
             string searchQuery = searchWeedByName;
             // Perform search and return results
-            if(string.IsNullOrEmpty(searchQuery))
+            if (string.IsNullOrEmpty(searchQuery))
             {
                 _weeds = _weedService.GetAllWeeds();
-                return  RedirectToAction("Index", _weedService.GetAllWeeds());
+                return RedirectToAction("Index", _weedService.GetAllWeeds());
             }
             _weeds = _weeds.Where(x => x.Name.Contains(searchWeedByName)).ToList();
-          return RedirectToAction("Index",_weeds);
+            return RedirectToAction("Index", _weeds);
         }
         // GET: WeedController/Details/5
         // [Authorize(Roles = "Admin")]
-        [Authorize(Roles ="Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Details(int id)
         {
             var restaurant = await _weedService.GetWeedByIdAsync(id);
-            if(restaurant is null)
+            if (restaurant is null)
             {
                 return NotFound();
             }
+            // to set the icon of amount items on shoppingcart
+            ViewData["WeedsFromUser"] = HomeController.weedsFromUser;
             ViewData["Reviews"] = await _reviewService.GetReviewsFromWeedIDAsync(id);
-            return View( await _weedService.GetWeedByIdAsync(id));
+            return View(await _weedService.GetWeedByIdAsync(id));
         }
 
         // GET: WeedController/Create
@@ -123,9 +138,9 @@ namespace WeedShop.Controllers
 
         // GET: WeedController/Edit/5
         [Authorize(Roles = "Admin")]
-        public  async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return View( await _weedService.GetWeedByIdAsync(id));
+            return View(await _weedService.GetWeedByIdAsync(id));
         }
 
         // POST: WeedController/Edit/5
@@ -140,8 +155,8 @@ namespace WeedShop.Controllers
                 //weedy.Name = weed.Name;
                 //_weeds = _weedService.GetAllWeeds();
                 weed.Id = id;
-                 _weedService.UpdateWeed(weed);
-                return RedirectToAction(nameof(Details), new { id = weed.Id});
+                _weedService.UpdateWeed(weed);
+                return RedirectToAction(nameof(Details), new { id = weed.Id });
             }
             catch
             {
@@ -173,12 +188,12 @@ namespace WeedShop.Controllers
                 return View();
             }
         }
-  
+
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> AddtoCard(int id)
         {
             var user = await _userService.GetUserByEmailAsync(HttpContext.User.FindFirst(ClaimTypes.Email).Value);
-            var weed =  await _weedService.GetWeedByIdAsync(id);
+            var weed = await _weedService.GetWeedByIdAsync(id);
             await _userService.AddWeedsToUserAsync(user.Id, weed);
             _weeds = _weedService.GetAllWeeds();
 
@@ -200,7 +215,7 @@ namespace WeedShop.Controllers
         public async Task<IActionResult> ReviewPost(ReviewEntity review)
         {
             var reviews = await _reviewService.GetAllReviewsAsync();
-            
+
             await _userService.AddReviewToWeedAsync(review);
             return RedirectToAction(nameof(Details), new { id = review.WeedId });
         }

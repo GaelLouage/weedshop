@@ -1,6 +1,8 @@
-﻿using Infrastructuur.Database.Interfaces;
+﻿using Infrastructuur.Apis;
+using Infrastructuur.Database.Interfaces;
 using Infrastructuur.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace WeedShop.Controllers
@@ -9,6 +11,7 @@ namespace WeedShop.Controllers
     {
         private readonly IUserService _userService;
         private static UserEntity? user;
+        public static List<SelectListItem> CountriesListItem = new List<SelectListItem>();
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -16,6 +19,7 @@ namespace WeedShop.Controllers
         // GET: UserController
         public async Task<ActionResult> Index()
         {
+
             return View(await _userService.GetAllUsersAsync());
         }
         // GET: UserController/Details/5
@@ -95,12 +99,26 @@ namespace WeedShop.Controllers
         public async Task<ActionResult> AddAddressToUser(int userId)
         {
             user = await _userService.GetUserByIdAsync(userId);
+            var addresses = CountryApi.Instance;
+            if (addresses is not null)
+            {
+                ViewData["addresses"] = addresses;
+            }
+            foreach (var item in await addresses.GetCountriesAsync())
+            {
+                CountriesListItem.Add(new SelectListItem
+                {
+                    Value = item.Name,
+                    Text = item.Name
+                });
+            }
             return View();
         }
         [HttpPost]
      //   [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddAddressToUser(AddressEntity addressVM)
         {
+            
             await _userService.AddAddressToUserAsync(user.Id, addressVM);
             return RedirectToAction("Detail");
         }

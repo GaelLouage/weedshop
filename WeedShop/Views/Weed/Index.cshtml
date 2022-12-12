@@ -9,90 +9,121 @@
 }
 
 
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        <a class="btn weedGreen" asp-action="Create">Create New WeedEntity</a>
-    </p>
-}
+
 
 @*search form for weed by name*@
-<form class="searchForm" asp-controller="Weed" asp-action="Search" method="post">
-    <input type="text"  name="searchWeedByName" />
-    <button type="submit" class="btn weedGreen">Search</button>
+<form class="searchForm mt-4" asp-controller="Weed" asp-action="Search" method="post">
+    <input type="text" name="searchWeedByName" />
+    <button type="submit" class="btn btn-sm weedGreen">Search</button>
 </form>
 <div class="categories">
-<div class="categories-box-one">
-    <h4>Categories</h4>
-    <form asp-controller="Weed" asp-action="PostIndex">
-      <div class="form-group">
-    <label> @nameof(TypeProduct.WEED)</label>
-    <input class="form-check-input" type="checkbox" name="categories" value="@nameof(TypeProduct.WEED)"/>
-    <label>
-        @weeds.Count(x => x.TypeProduct == TypeProduct.WEED)
-    </label>
-    </div>
-     <div class="form-group">
-       <label> @nameof(TypeProduct.HASH)</label>
-       <input class="form-check-input" type="checkbox" name="categories" value="@nameof(TypeProduct.HASH)"/>
-           <label>
-        @weeds.Count(x => x.TypeProduct == TypeProduct.HASH)
-    </label>
-    </div>
-     <div class="form-group">
-             <label> @nameof(TypeProduct.WEEDOIL)</label>
-    <input class="form-check-input" type="checkbox" name="categories" value="@nameof(TypeProduct.WEEDOIL)"/>
-        <label>
-        @weeds.Count(x => x.TypeProduct == TypeProduct.WEEDOIL)
-    </label>
-    </div>
-    <button class="btn  weedGreen" type="submit">filter</button>
-    </form>
-</div>
-<div class="card-weed-list">
-    @foreach (var item in Model)
-    {
-
-        <div class="card" style="width:35%">
-            <img src="@Html.DisplayFor(modelItem => item.ImageFileLocation)" />
-            <div class="card-body">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-@*                <hr>
-                <p class="card-text">@Html.DisplayFor(modelItem => item.Info)</p>*@
+    <div class="categories-box-one">
+        @if (User.IsInRole("Admin"))
+{
+    <p>
+        <a class="btn btn-sm mt-3 w-100 weedGreen" asp-action="Create">Create New WeedEntity</a>
+    </p>
+}
+        <h4>Categories</h4>
+        <form asp-controller="Weed" asp-action="PostIndex">
+            <div class="form-group">
+                <label> @nameof(TypeProduct.WEED)</label>
+                      <div class="float-end">
+                <input class="form-check-input pointer mr-4" type="checkbox" name="categories" value="@nameof(TypeProduct.WEED)" />
+                <label>
+                    @weeds.Count(x => x.TypeProduct == TypeProduct.WEED)
+                </label>
+                </div>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">THC: @Html.DisplayFor(modelItem => item.THC)</li>
-                <li class="list-group-item">Price/gram: @Html.DisplayFor(modelItem => item.Price) €</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-            @if (User.IsInRole("Admin"))
-            {
-                <div class="card-body">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new {  id = item.Id })
-                    @Html.ActionLink("Delete", "Delete", new {  id = item.Id })
+            <div class="form-group">
+                <label> @nameof(TypeProduct.HASH)</label>
+                      <div class="float-end">
+                <input class="form-check-input pointer  mr-4" type="checkbox" name="categories" value="@nameof(TypeProduct.HASH)" />
+                <label>
+                    @weeds.Count(x => x.TypeProduct == TypeProduct.HASH)
+                </label>
                 </div>
-            }
-            else
-            {
-                <div class="card-body">
-                    @Html.ActionLink("Details", "Details", new {  id = item.Id })
+            </div>
+            <div class="form-group">
+                <label> @nameof(TypeProduct.WEEDOIL)</label>
+                     <div class="float-end">
+                <input class="form-check-input pointer  mr-4" type="checkbox" name="categories" value="@nameof(TypeProduct.WEEDOIL)" />
+                <label>
+                    @weeds.Count(x => x.TypeProduct == TypeProduct.WEEDOIL)
+                </label>
                 </div>
-            }
-            <form asp-controller="Weed" asp-action="Index">
-                <div class="card-footer d-flex justify-content-center">
-                    <span id="min" class="btn weedGreen btn-lg" onclick="decreaseValue(@i)">-</span>
-                    <input type="number" hidden name="WeedId" value="@item.Id">
-                    <input type="number" class="w-25" id="theAmount" value="0" name="AmountItemToAdd">
+            </div>
 
-                    <span id="plus" class="btn weedGreen btn-lg" onclick="increaseValue(@i)">+</span>
+            <div class="form-group">
+                <label> @nameof(TypeProduct.GRIT)</label>
+                <div class="float-end">
+                    <input class="form-check-input pointer" type="checkbox" name="categories" value="@nameof(TypeProduct.GRIT)" />
+                    <label>
+                        @weeds.Count(x => x.TypeProduct == TypeProduct.GRIT)
+                    </label>
                 </div>
-                <button type="submit" class="btn btn-lg weedGreen w-100">Add to chart</button>
-            </form>
-        </div>
-        i++;
-    }
-</div>
+
+            </div>
+
+            <div class="form-group">
+                <label> @nameof(TypeProduct.LONGROLLINGPAPER)</label>
+                        <div class="float-end">
+                <input class="form-check-input pointer" type="checkbox" name="categories" value="@nameof(TypeProduct.LONGROLLINGPAPER)" />
+                <label>
+                    @weeds.Count(x => x.TypeProduct == TypeProduct.LONGROLLINGPAPER)
+                </label>
+                </div>
+            </div>
+            <button class="btn  weedGreen btn-sm w-100" type="submit">filter</button>
+        </form>
+    </div>
+    <div class="card-weed-list">
+        @foreach (var item in Model)
+        {
+
+            <div class="card" style="width:35%">
+                <div class="card-header  weedGreen">
+                   <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                </div>
+                <img class="h-50" src="@Html.DisplayFor(modelItem => item.ImageFileLocation)" />
+                <div class="card-body">
+                   
+                    @*                <hr>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Info)</p>*@
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">THC: @Html.DisplayFor(modelItem => item.THC)</li>
+                    <li class="list-group-item">Price/gram: @Html.DisplayFor(modelItem => item.Price) €</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="card-body">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id },  new { @class = "btn btn-sm weedGreen"} ) 
+                        @Html.ActionLink("Details", "Details", new {  id = item.Id },  new { @class = "btn btn-sm weedGreen"}) 
+                        @Html.ActionLink("Delete", "Delete", new {  id = item.Id },  new { @class = "btn btn-sm weedGreen"})
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body">
+                        @Html.ActionLink("Details", "Details", new {  id = item.Id })
+                    </div>
+                }
+                <form asp-controller="Weed" asp-action="Index">
+                    <div class="card-footer d-flex justify-content-center">
+                        <span id="min" class="btn weedGreen btn-sm" onclick="decreaseValue(@i)">-</span>
+                        <input type="number" hidden name="WeedId" value="@item.Id">
+                        <input type="number" class="w-25" id="theAmount" value="0" name="AmountItemToAdd">
+
+                        <span id="plus" class="btn weedGreen btn-sm" onclick="increaseValue(@i)">+</span>
+                    </div>
+                    <button type="submit" class="btn btn-sm weedGreen w-100">Add to chart</button>
+                </form>
+            </div>
+            i++;
+        }
+    </div>
 </div>
 <script>
     var minus = document.querySelectorAll("#min");

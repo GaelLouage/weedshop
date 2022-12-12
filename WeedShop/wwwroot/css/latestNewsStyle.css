@@ -69,6 +69,10 @@ h3, p {
 .most-popular-container img {
     width: 15em;
 }
+/*green color on inputs*/
+.form-check-input:checked {
+    background-color: var(--weedColor) !important;
+}
 /*greenbanner*/
 .green-banner {
     display: grid;

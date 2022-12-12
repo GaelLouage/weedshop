@@ -9,11 +9,9 @@
     string reviewText = "";
     @foreach (var weedReview in weedReviews.Where(x => x.WeedId == @Model.Id))
     {
-  
-         reviewText+= $"<p><strong>{@weedReview.UserName}</strong></p><p>{@weedReview.ReviewText}</p>";
+        reviewText += $"<p><strong>{@weedReview.UserName}</strong></p><p>{@weedReview.ReviewText}</p>";
     }
 }
-
 <div class="container-detail">
     <div>
         <img src="@Html.DisplayFor(model => model.ImageFileLocation)" />
@@ -50,15 +48,14 @@
     </div>
 </div>
 
-
-
 @*description review*@
 <div class="container">
     <div class="description-reviews-header">
         <h5 class="description-review" onclick="switchText(0)">DESCRIPTION</h5>
         <h5 class="description-review" onclick="switchText(1)">REVIEW</h5>
+        <hr />
     </div>
-    <div class="text-description-review">
+    <div class="text-description-review description">
     </div>
 </div>
 
@@ -71,11 +68,15 @@
     function switchText(index) {
         switch (index) {
             case 0:
-                   descriptionReviewText.innerHTML = "<p>@Html.DisplayFor(model => model.Info)</p>";
+                descriptionReviewText.classList.add("description");
+                descriptionReviewText.innerHTML = "<p>@Html.DisplayFor(model => model.Info)</p>";
+                descriptionReviewText.classList.remove("review");
                 break;
             case 1:
-               
-                descriptionReviewText.innerHTML = "@reviewText";
+                descriptionReviewText.classList.remove("description");
+                descriptionReviewText.classList.add("review");
+
+                descriptionReviewText.innerHTML = '@reviewText';
                 break;
             default:
                 descriptionReviewText.innerHTML = "REVIEWS";
