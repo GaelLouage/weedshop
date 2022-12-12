@@ -76,6 +76,12 @@ namespace WeedShop.Controllers
                 case "HASH":
                     _weeds = _weedService.GetAllWeeds().Where(x => x.TypeProduct == TypeProduct.HASH).ToList();
                     break;
+                case "GRIT":
+                    _weeds = _weedService.GetAllWeeds().Where(x => x.TypeProduct == TypeProduct.GRIT).ToList();
+                    break;
+                case "LONGROLLINGPAPER":
+                    _weeds = _weedService.GetAllWeeds().Where(x => x.TypeProduct == TypeProduct.LONGROLLINGPAPER).ToList();
+                    break;
                 default:
                     _weeds = _weedService.GetAllWeeds();
                     break;
@@ -84,14 +90,13 @@ namespace WeedShop.Controllers
         }
         public IActionResult Search(string searchWeedByName)
         {
-            string searchQuery = searchWeedByName;
             // Perform search and return results
-            if (string.IsNullOrEmpty(searchQuery))
+            if (string.IsNullOrEmpty(searchWeedByName))
             {
                 _weeds = _weedService.GetAllWeeds();
                 return RedirectToAction("Index", _weedService.GetAllWeeds());
             }
-            _weeds = _weeds.Where(x => x.Name.Contains(searchWeedByName)).ToList();
+            _weeds = _weeds.Where(x => x.Name.ToLower().Contains(searchWeedByName.ToLower())).ToList();
             return RedirectToAction("Index", _weeds);
         }
         // GET: WeedController/Details/5

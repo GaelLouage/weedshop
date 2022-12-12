@@ -1,6 +1,6 @@
 ﻿:root {
     --weedColor: #83b735;
-}
+}0
 
 .weedColor {
     background-color: var(--weedColor);
@@ -12,10 +12,15 @@
     width: 80%;
     margin: 0 auto;
     justify-content: center;
+    align-items:center;
     grid-template-columns: 1fr;
 }
-.detail-text {
 
+.details-text {
+    display:grid;
+}
+.container-detail img {
+  width: 85%;
 }
 .description-reviews-header {
     display: flex;
@@ -28,15 +33,15 @@
   transition: 0.5s ease-in;
 }
 .description {
-    text-align: center;
+   
 }
 .review {
     display:grid;
 }
-.container-detail img {
-    align-self: center;
-    width: 80%;
+.checked {
+    color: orange;
 }
+
 @media only screen and (max-width: 768px) {
     /* styles for screens with a width up to 768px go here */
     .container-detail {

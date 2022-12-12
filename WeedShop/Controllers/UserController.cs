@@ -120,7 +120,7 @@ namespace WeedShop.Controllers
         {
             
             await _userService.AddAddressToUserAsync(user.Id, addressVM);
-            return RedirectToAction("Detail");
+            return RedirectToAction(nameof(Details));
         }
     }
 }

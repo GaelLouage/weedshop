@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vmQMDfCZh8l0jCaeUJBaab/0aKvCxm6q6E3UynPu+4I=",
+  "Hash": "eD76XgG0cqrnEnItRZp4972/vjA0bH0p3EgeKbFj+DE=",
   "Source": "WeedShop",
   "BasePath": "_content/WeedShop",
   "Mode": "Default",
@@ -1207,6 +1207,23 @@
       "OriginalItemSpec": "wwwroot\\WeedImg\\92011_canada_tracking_icon.png"
     },
     {
+      "Identity": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\WeedImg\\AmneziaHaze.PNG",
+      "SourceId": "WeedShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\",
+      "BasePath": "_content/WeedShop",
+      "RelativePath": "WeedImg/AmneziaHaze.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\WeedImg\\AmneziaHaze.PNG"
+    },
+    {
       "Identity": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\WeedImg\\bitcoin.png",
       "SourceId": "WeedShop",
       "SourceType": "Discovered",
@@ -1224,6 +1241,23 @@
       "OriginalItemSpec": "wwwroot\\WeedImg\\bitcoin.png"
     },
     {
+      "Identity": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\WeedImg\\BubbaKush.PNG",
+      "SourceId": "WeedShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\",
+      "BasePath": "_content/WeedShop",
+      "RelativePath": "WeedImg/BubbaKush.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\WeedImg\\BubbaKush.PNG"
+    },
+    {
       "Identity": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\WeedImg\\cannabis-banner.jpg",
       "SourceId": "WeedShop",
       "SourceType": "Discovered",
@@ -1239,6 +1273,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\WeedImg\\cannabis-banner.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\WeedImg\\CannabisOil.PNG",
+      "SourceId": "WeedShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\",
+      "BasePath": "_content/WeedShop",
+      "RelativePath": "WeedImg/CannabisOil.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\WeedImg\\CannabisOil.PNG"
     },
     {
       "Identity": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\WeedImg\\CookiesKushLolBuds.PNG",
@@ -1562,6 +1613,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\WeedImg\\smallBobBanner.png"
+    },
+    {
+      "Identity": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\WeedImg\\StrewberryBananaHash.PNG",
+      "SourceId": "WeedShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\",
+      "BasePath": "_content/WeedShop",
+      "RelativePath": "WeedImg/StrewberryBananaHash.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\WeedImg\\StrewberryBananaHash.PNG"
+    },
+    {
+      "Identity": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\WeedImg\\TuxedoGoldKingSize.PNG",
+      "SourceId": "WeedShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\",
+      "BasePath": "_content/WeedShop",
+      "RelativePath": "WeedImg/TuxedoGoldKingSize.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\WeedImg\\TuxedoGoldKingSize.PNG"
     },
     {
       "Identity": "C:\\Users\\louag\\source\\repos\\WeedShop\\WeedShop\\wwwroot\\WeedImg\\WatermelonZkittlez.png",

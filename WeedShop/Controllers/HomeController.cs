@@ -21,6 +21,7 @@ namespace WeedShop.Controllers
         //public static UserEntity? userLogin = null;
         public static List<WeedEntity>? weedsFromUser = new List<WeedEntity>();
         public static string userFailedRegister;
+        private static string? WrongUserNameOrPassword;
         public HomeController(ILogger<HomeController> logger, IUserService userService, IWeedService weedService)
         {
             _logger = logger;
@@ -29,7 +30,8 @@ namespace WeedShop.Controllers
         }
         public async  Task<IActionResult> Index()
         {
-           // weedsFromUser = null;
+    
+            // weedsFromUser = null;
             var weedsPopular = ( _weedService.GetAllWeeds()).ToList();
             ViewData["MostPopularWeed"] = weedsPopular.Skip(1).Take(5).ToList();
             ViewData["MostPopularHash"] = weedsPopular.Skip(6).Take(5).ToList();
@@ -55,12 +57,22 @@ namespace WeedShop.Controllers
         public IActionResult Login()
         {
             userFailedRegister = null;
+            if(!string.IsNullOrEmpty(WrongUserNameOrPassword))
+            {
+                ViewData["wrongUser"] = WrongUserNameOrPassword;
+                WrongUserNameOrPassword = "";
+            }
             return View();
         }
         [HttpPost("login")]
         public async Task<IActionResult> Validate(UserEntity user)
         {
             // todo place hashed in seperate method
+            if (string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(user.FirstName))
+            {
+                WrongUserNameOrPassword = "Wrong username or password.";
+                return RedirectToAction(nameof(Login));
+            }
             var sha1 = new SHA1CryptoServiceProvider();
             var userPasswordData = Encoding.ASCII.GetBytes(user.Password);
             var userHashOne = sha1.ComputeHash(userPasswordData);
@@ -68,7 +80,11 @@ namespace WeedShop.Controllers
             user.Password =  Convert.ToBase64String(userHashOne);
             var  userLogin  = await _userService.GetUserAsync(user.FirstName,user.Password);
 
-            if (userLogin is null) return NotFound();
+            if (userLogin is null)
+            {
+                WrongUserNameOrPassword = "Wrong username or password.";
+                return RedirectToAction(nameof(Login));
+            };
           
             if (user.FirstName == userLogin.FirstName && user.Password ==  userLogin.Password)
             {
@@ -121,14 +137,18 @@ namespace WeedShop.Controllers
                {
                     userFailedRegister =  $"A user with {user.Email} already exist.";
                     //return RedirectToAction("Register");
-                    return RedirectToAction("Register");
-               }
+                    //  return RedirectToAction(nameof(Login));
+                    return RedirectToAction(nameof(Login));
+                } else
+                {
+
+                }
             } catch(Exception ex)
             {
                 _logger.LogError(ex.ToString());
             }
          
-            return RedirectToAction("Login");
+            return RedirectToAction(nameof(Login));
         }
         [HttpGet]
         public async Task<IActionResult> ShoppingCart()

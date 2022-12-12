@@ -31,7 +31,7 @@
                     @foreach (var item in @weedFromUser.GroupBy(x => x.Name))
                     {
                         <tr>
-                            <td><img class="w-25" src="~@item.FirstOrDefault().ImageFileLocation" /></td>
+                            <td><img class="w-25" src="@item.FirstOrDefault().ImageFileLocation" /></td>
                             <td>@item.FirstOrDefault().Name</td>
                             <td>€ @item.FirstOrDefault().Price.ToString("F2")</td>
                             <td>@item.Count()</td>

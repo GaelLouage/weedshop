@@ -1,9 +1,11 @@
 ﻿@using Infrastructuur.Models
+@using WeedShop.Controllers
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     <link rel="stylesheet" href="~/css/latestNewsStyle.css" asp-append-version="true" />
+    var wrongUser = ViewData["wrongUser"] as string;
 }
 
 @model UserEntity
@@ -23,8 +25,12 @@
             </div>
             <button class="btn weedGreen  btn-lg text-white w-100 mt-5" type="submit">SIGN IN</button>
         </form>
+        @if (!string.IsNullOrEmpty(wrongUser))
+        {
+            <p class="alert alert-danger mt-2">@wrongUser</p>
+        }
     </div>
-    
+
     <div class="second-con">
         <h4 class="text-center">REGISTER</h4>
         <p>
@@ -33,7 +39,63 @@
             We will only ask you for information that is necessary to make the
             purchasing process faster and easier.
         </p>
-        <a asp-action="Register" class="btn btn-lg w-100 registerC">REGISTER</a>
-    </div>
 
+        <!-- Modal -->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-lg w-100 registerC" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            REGISTER
+        </button>
+    </div>
+    <div class="second-con">
+        @*modal register*@
+        <!-- Button trigger modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Register</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form asp-action="ValidateRegister" method="post">
+
+                            <div class="form-group">
+                                <label asp-for="@Model.FirstName"></label>
+                                <input class="form-control" type="text" asp-for="@Model.FirstName" />
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="@Model.LastName"></label>
+                                <input class="form-control" type="text" asp-for="@Model.LastName" />
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Password"></label>
+                                <input class="form-control" type="password" asp-for="@Model.Password" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.Email"></label>
+                                <input class="form-control" type="email" asp-for="@Model.Email" />
+                            </div>
+                            <button type="submit" class="btn weedGreen mt-2 w-100">Submit</button>
+                        </form>
+                        @if (!string.IsNullOrEmpty(@HomeController.userFailedRegister))
+                        {
+                            <p>@HomeController.userFailedRegister</p>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </div>
+
+

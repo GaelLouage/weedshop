@@ -23,9 +23,12 @@ namespace Infrastructuur.Models
         public string Name { get; set; }
         [Required]
         public string THC { get; set; }
-        //public List<string>? Flavors { get; set; } = new List<string>();
-        //public List<string>? EffectOnUser { get; set; } = new List<string>();
-        //public List<string>? Medicinal { get; set; } = new List<string>();
+        [Required]
+        public string Flavours { get; set; }
+        [Required]
+        public string Effects { get; set; }
+        [Required]
+        public string Medicinal { get; set; }
         [Required]
         [Range(1,1000)]
         public double Price { get; set; }

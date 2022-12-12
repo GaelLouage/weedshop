@@ -7,10 +7,6 @@
     var weeds = ViewData["Weeds"] as List<WeedEntity>;
     int i = 0;
 }
-
-
-
-
 @*search form for weed by name*@
 <form class="searchForm mt-4" asp-controller="Weed" asp-action="Search" method="post">
     <input type="text" name="searchWeedByName" />
@@ -85,6 +81,7 @@
                 <div class="card-header  weedGreen">
                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
                 </div>
+
                 <img class="h-50" src="@Html.DisplayFor(modelItem => item.ImageFileLocation)" />
                 <div class="card-body">
                    
@@ -94,7 +91,6 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">THC: @Html.DisplayFor(modelItem => item.THC)</li>
                     <li class="list-group-item">Price/gram: @Html.DisplayFor(modelItem => item.Price) €</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
                 </ul>
                 @if (User.IsInRole("Admin"))
                 {

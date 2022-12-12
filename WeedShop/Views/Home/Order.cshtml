@@ -12,7 +12,7 @@
 
 @model UserEntity
 @functions {
-    string TotalAmountPerWeedType(double amount, double price) => $"€{(amount * price).ToString("F2")}";
+    string TotalAmountPerWeedType(double amount, double price) => $"€ {(amount * price).ToString("F2")}";
 }
 <div class="billing">
     <div class="billing-container m-lg-5">
@@ -32,7 +32,7 @@
 
             <div class="mb-3">
                 <label class="form-label">Country/Region *</label>
-                <input type="text" class="form-control" asp-for="@userAddress].Country">
+                <input type="text" class="form-control" asp-for="@userAddress.Country">
                 <span class="text-danger" asp-validation-for="@userAddress.Country"></span>
             </div>
 
@@ -65,7 +65,7 @@
                 <input type="email" class="form-control" asp-for="@Model.Email">
                 <span class="text-danger" asp-validation-for="@Model.Email"></span>
             </div>
-            <button type="submit" class="btn weedColor w-100 text-white">PLACE ORDER AND PAY</button>
+            <button type="submit" class="btn weedColor w-100 text-white buttonSumbitOrder">PLACE ORDER AND PAY</button>
         </form>
         <div class="billing-right">
             <h5>YOUR ORDER</h5>
@@ -87,9 +87,9 @@
                 <div class="dispatch">
                     <p><strong>Dispatch</strong></p>
                     <div class="box-info">
-          @*              <p>@Model.Addresses[0].Country</p>
-                        <p>@Model.Addresses[0].City @Model.Addresses[0].PostalCode</p>
-                        <p>@Model.Addresses[0].Address @Model.Addresses[0].AddressNumber</p>*@
+                        <p>@userAddress.Country</p>
+                        <p>@userAddress.City @userAddress.PostalCode</p>
+                        <p>@userAddress.Address @userAddress.AddressNumber</p>
                     </div>
                 </div>
                 <hr />

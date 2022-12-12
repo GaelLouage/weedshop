@@ -4,20 +4,52 @@
 @{
     ViewData["Title"] = "Details";
     <link rel="stylesheet" href="~/css/WeedDetail.css" asp-append-version="true" />
+    <!-- Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     var weedReviews = ViewData["Reviews"] as List<ReviewEntity>;
     weedReviews = weedReviews.Where(x => x.WeedId == @Model.Id).ToList();
     string reviewText = "";
-    @foreach (var weedReview in weedReviews.Where(x => x.WeedId == @Model.Id))
+    var weedReviewsByUserId = weedReviews.Where(x => x.WeedId == @Model.Id);
+}
+@functions {
+    int GetAverageRatin(List<int> ratings)
     {
-        reviewText += $"<p><strong>{@weedReview.UserName}</strong></p><p>{@weedReview.ReviewText}</p>";
+        return ratings.Count is not 0 ? (int)Math.Round((double)(ratings.Sum() / ratings.Count)) : 0;
     }
 }
-<div class="container-detail">
+<div class="container-detail container">
     <div>
         <img src="@Html.DisplayFor(model => model.ImageFileLocation)" />
     </div>
     <div>
-        <dl class="row">
+        <dl class="details-text">
+            <dt class="col-sm-2">
+                Rating
+            </dt>
+            <dd class="col-sm-10" ">
+                @if(@GetAverageRatin(@weedReviews.Select(x => x.Rating).ToList()) is not 0)
+                {
+
+                @for (int i = 0; i < 5; i++)
+                {
+                if (i <= @GetAverageRatin(@weedReviews.Select(x => x.Rating).ToList()))
+                {
+                <span class="fa fa-star checked"></span>
+                }
+                else
+                {
+                <span class="fa fa-star"></span>
+                }
+                }
+                } else {
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                }
+
+            </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Name)
             </dt>
@@ -36,52 +68,74 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Price)
             </dd>
+            <div>
+                @Html.ActionLink("Add Comment", "Review", new { id = Model.Id},  new { @class = "btn btn-sm weedGreen"})
+                @*  <a asp-action="Review" class="btn weedColor text-white btn-lg">Add comment</a>*@
+            </div>
         </dl>
+        @if (User.IsInRole("Admin"))
+        {
         <div>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-            <a asp-action="Index">Back to List</a>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id } ,  new { @class = "btn btn-sm weedGreen"})
+            @* <a class = "btn btn-sm weedGreen" asp-action="Index">Back to List</a>*@
         </div>
-        <div>
-            @Html.ActionLink("Add Comment", "Review", new { id = Model.Id })
-            @*  <a asp-action="Review" class="btn weedColor text-white btn-lg">Add comment</a>*@
-        </div>
+        }
+
     </div>
 </div>
-
+<hr class="container">
 @*description review*@
 <div class="container">
     <div class="description-reviews-header">
         <h5 class="description-review" onclick="switchText(0)">DESCRIPTION</h5>
-        <h5 class="description-review" onclick="switchText(1)">REVIEW</h5>
+        <h5 class="description-review" onclick="switchText(1)">REVIEW(@weedReviews.Count())</h5>
         <hr />
     </div>
     <div class="text-description-review description">
+        <p><strong></strong> @Html.DisplayFor(model => model.Info)</p>
+        <div>
+            <p><strong>THC:</strong> @Html.DisplayFor(model => model.THC)</p>
+            <p><strong>Effects:</strong> @Html.DisplayFor(model => model.Effects)</p>
+            <p><strong>Medicinal:</strong> @Html.DisplayFor(model => model.Medicinal)</p>
+            <p><strong>Flavours:</strong> @Html.DisplayFor(model => model.Flavours)</p>
+        </div>
+    </div>
+    <div class="text-description-review description">
+        @foreach (var weedReview in weedReviews.Where(x => x.WeedId == @Model.Id))
+        {
+        <p><strong>@weedReview.UserName</strong></p>
+
+        <p>@weedReview.ReviewText</p>
+        <div class="rating">
+            @for (int i = 0; i < 5; i++)
+            {
+            if (i <= @weedReview.Rating)
+            {
+            <span class="fa fa-star checked"></span>
+            }
+            else
+            {
+            <span class="fa fa-star"></span>
+            }
+            }
+        </div>
+        }
     </div>
 </div>
 
 <script>
-    const descriptionReview = document.querySelectorAll(".description-review");
-    const descriptionReviewText = document.querySelector(".text-description-review");
-    descriptionReviewText.innerHTML = "<p>@Html.DisplayFor(model => model.Info)</p>";
-    descriptionReview[1].innerHTML += `(${@weedReviews.Count()})`;
-
+    const descriptionReviewText = document.querySelectorAll(".text-description-review");
+    descriptionReviewText[1].style.display = "none";
     function switchText(index) {
         switch (index) {
             case 0:
-                descriptionReviewText.classList.add("description");
-                descriptionReviewText.innerHTML = "<p>@Html.DisplayFor(model => model.Info)</p>";
-                descriptionReviewText.classList.remove("review");
+                descriptionReviewText[1].style.display = "none";
+                descriptionReviewText[0].style.display = "block";
                 break;
             case 1:
-                descriptionReviewText.classList.remove("description");
-                descriptionReviewText.classList.add("review");
-
-                descriptionReviewText.innerHTML = '@reviewText';
-                break;
-            default:
-                descriptionReviewText.innerHTML = "REVIEWS";
+                descriptionReviewText[0].style.display = "none";
+                descriptionReviewText[1].style.display = "block";
                 break;
         }
     }
-
 </script>
