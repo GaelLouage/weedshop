@@ -29,6 +29,12 @@ namespace WeedShop.Controllers
             if(user is null)
             {
                 var userByEmail = await _userService.GetUserByEmailAsync(HttpContext.User?.FindFirst(ClaimTypes.Email)?.Value);
+                var userAddress = await _userService.GetAddressesFromUserById(userByEmail.Id);
+                if(userAddress is not null)
+                {
+                    ViewData["userAddresses"] = userAddress;
+                }
+               
                 return View(await _userService.GetUserByIdAsync(userByEmail.Id));
             }
             return View(user);
@@ -67,7 +73,7 @@ namespace WeedShop.Controllers
             {
                 var userToEdit =  await _userService.UpdateUserAsync(id, user);
             
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             catch
             {

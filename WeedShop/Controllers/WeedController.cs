@@ -25,17 +25,12 @@ namespace WeedShop.Controllers
             if (_weeds is null) _weeds = _weedService.GetAllWeeds();
             _reviewService = reviewService;
             WeedListTypes = new List<SelectListItem>() {
-              new SelectListItem{ Value = nameof(TypeProduct.WEED),Text = "Weed"},
+               new SelectListItem{ Value = nameof(TypeProduct.WEED),Text = "Weed"},
                new SelectListItem{ Value = nameof(TypeProduct.HASH),Text = "Hash"},
-                new SelectListItem{ Value = nameof(TypeProduct.WEEDOIL),Text = "Weed oil"},
-                 new SelectListItem{ Value = nameof(TypeProduct.GRIT),Text = "Grit"},
-                     new SelectListItem{ Value = nameof(TypeProduct.LONGROLLINGPAPER),Text = "Long rolling paper"},
+               new SelectListItem{ Value = nameof(TypeProduct.WEEDOIL),Text = "Weed oil"},
+               new SelectListItem{ Value = nameof(TypeProduct.GRIT),Text = "Grit"},
+               new SelectListItem{ Value = nameof(TypeProduct.LONGROLLINGPAPER),Text = "Long rolling paper"},
             };
-            //    WEED,
-            //HASH,
-            //WEEDOIL,
-            //GRIT,
-            //LONGROLLINGPAPER
         }
 
         // GET: WeedController

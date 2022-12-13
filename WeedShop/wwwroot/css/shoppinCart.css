@@ -14,17 +14,15 @@
     gap: 5em;
     justify-content: space-around;
 }
-
 .card-total {
     width: 25em;
     padding: 2em;
     border: 4px solid lightgrey;
+    max-height: 25em;
 }
-
 .dispatch p {
     line-height: 0.5em; 
 }
-
 @media screen and (max-width: 1400px) {
     .shop {
 

@@ -14,6 +14,7 @@ builder.Services.AddScoped<IWeedService, WeedService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 //database
 builder.Services.AddDbContext<WeedDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

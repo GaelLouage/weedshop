@@ -26,7 +26,7 @@ namespace Infrastructuur.Database.Classes
         {
             //var userWeed = new UserWeedEntity();
             var user = await _weedDbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
-            var weedEn = await  _weedDbContext.Weeds.FirstOrDefaultAsync(w => w.Id == weed.Id);
+            var weedEn = await _weedDbContext.Weeds.FirstOrDefaultAsync(w => w.Id == weed.Id);
             if (user is null || weedEn is null)
             {
 
@@ -36,14 +36,14 @@ namespace Infrastructuur.Database.Classes
                 UserId = userId,
                 WeedId = weed.Id
             });
-             _weedDbContext.SaveChanges();    
+            _weedDbContext.SaveChanges();
         }
 
         public async Task<bool> CreateUserAsync(UserEntity user)
         {
             user.Role = "User";
             var users = await _weedDbContext.Users.ToListAsync();
-            if(!users.Any(x => x.Email == user.Email || (x.FirstName == user.FirstName  && x.LastName == user.LastName)))
+            if (!users.Any(x => x.Email == user.Email || (x.FirstName == user.FirstName && x.LastName == user.LastName)))
             {
                 _weedDbContext.Users.Add(user);
                 await _weedDbContext.SaveChangesAsync();
@@ -55,11 +55,11 @@ namespace Infrastructuur.Database.Classes
         public async Task DeleteUserAsync(int id)
         {
             var user = _weedDbContext.Users.FirstOrDefault(u => u.Id == id);
-            if(user is null)
+            if (user is null)
             {
-              
+
             }
-             _weedDbContext.Users.Remove(user);
+            _weedDbContext.Users.Remove(user);
             await _weedDbContext.SaveChangesAsync();
         }
 
@@ -76,7 +76,7 @@ namespace Infrastructuur.Database.Classes
         public async Task<List<UserEntity>> GetAllUsersAsync()
         {
             var users = await _weedDbContext.Users.ToListAsync();
-            if(users is null)
+            if (users is null)
             {
                 return null;
             }
@@ -86,7 +86,7 @@ namespace Infrastructuur.Database.Classes
         public async Task<UserEntity> GetUserAsync(string firstName, string password)
         {
             var user = await _weedDbContext.Users.FirstOrDefaultAsync(f => f.FirstName == firstName && f.Password == password);
-            if(user is null)
+            if (user is null)
             {
 
             }
@@ -116,7 +116,7 @@ namespace Infrastructuur.Database.Classes
         public async Task<List<WeedEntity>> GetWeedFromUserByUserId(int id)
         {
             var weedFromUser = await _weedDbContext.UserWeeds.Where(x => x.UserId == id).Select(x => x.Weed).ToListAsync();
-            if(weedFromUser is null)
+            if (weedFromUser is null)
             {
 
             }
@@ -129,8 +129,14 @@ namespace Infrastructuur.Database.Classes
             user.FirstName = userVm.FirstName;
             user.LastName = userVm.LastName;
             user.UserAddress = userVm.UserAddress;
-            user.Role = userVm.Role;
-            if(user is null)
+            if(userVm.Role is null) {
+                user.Role = "User";
+            } else
+            {
+                user.Role = userVm.Role;
+            }
+           
+            if (user is null)
             {
 
             }
@@ -145,10 +151,10 @@ namespace Infrastructuur.Database.Classes
             await _weedDbContext.SaveChangesAsync();
         }
 
-        public async Task<UserEntity> AddAddressToUserAsync(int userId,AddressEntity address)
+        public async Task<UserEntity> AddAddressToUserAsync(int userId, AddressEntity address)
         {
             var user = await GetUserByIdAsync(userId);
-            if(user is null || address is null)
+            if (user is null || address is null)
             {
                 // return a dto with an error
                 return null;
@@ -169,13 +175,23 @@ namespace Infrastructuur.Database.Classes
         public async Task<AddressEntity> GetFirstAddressFromUserAsync(int userId)
         {
             var userAddressId = (await _weedDbContext.UserAddnresses.FirstOrDefaultAsync(x => x.UserId == userId));
-            if(userAddressId is null)
+            if (userAddressId is null)
             {
                 return null;
             }
             var address = await _weedDbContext.Addresses.FirstOrDefaultAsync(x => x.Id == userAddressId.AddressId);
             if (address is null) return null;
             return address;
+        }
+
+        public async Task<List<AddressEntity>> GetAddressesFromUserById(int userID)
+        {
+            var userAddresses = await _weedDbContext.UserAddnresses
+                                .Where(x => x.UserId == userID)
+                                .SelectMany(x => _weedDbContext.Addresses.Where(a => a.Id == x.AddressId))
+                                .ToListAsync();
+            return userAddresses;
+
         }
     }
 }

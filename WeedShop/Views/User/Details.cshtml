@@ -1,7 +1,10 @@
-﻿@model Infrastructuur.Models.UserEntity
+﻿@using Infrastructuur.Models
+@model Infrastructuur.Models.UserEntity
 
 @{
     ViewData["Title"] = "Details";
+
+    var address = ViewData["userAddresses"] as List<AddressEntity>;
 }
 
 <h1 class="container mt-5">Details</h1>
@@ -50,9 +53,10 @@
         }
     </dl>
     <div>
-    @Html.ActionLink("Edit", "Edit", new {  id = @Model.Id }, new { @class = "btn weedGreen btn-sm"}) 
-    <a class="btn weedGreen btn-sm" asp-action="AddAddressToUser" asp-route-userId="@Model.Id">Add Address</a>
-    <a class="btn weedGreen btn-sm"  asp-action="Index">Back to List</a>
+        @Html.ActionLink("Edit", "Edit", new {  id = @Model.Id }, new { @class = "btn weedGreen btn-sm"})
+        <a class="btn weedGreen btn-sm" asp-action="AddAddressToUser" asp-route-userId="@Model.Id">Add Address</a>
+        <a class="btn weedGreen btn-sm" asp-action="Index">Back to List</a>
+         <a class="btn btn-sm w-100 weedGreen mt-4" asp-action="Index" asp-controller="Address" asp-route-id="@Model.Id">Addresses</a>
+         
+    </div>
 </div>
-</div>
-

@@ -22,5 +22,6 @@ namespace Infrastructuur.Database.Interfaces
         Task AddReviewToWeedAsync(ReviewEntity review);
         Task<UserEntity> AddAddressToUserAsync(int userId, AddressEntity address);
         Task<AddressEntity> GetFirstAddressFromUserAsync(int userId);
+        Task<List<AddressEntity>> GetAddressesFromUserById(int userID);
     }
 }
