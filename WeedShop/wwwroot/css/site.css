@@ -6,7 +6,13 @@
     background-color: var(--weedColor);
     color: white;
 }
-
+.most-popular-box-one {
+    display: grid;
+}
+.con-pop img {
+  width: 2em;
+  height: 15em;
+}
 html {
     font-size: 14px;
 }

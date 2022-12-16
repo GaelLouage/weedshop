@@ -33,8 +33,8 @@ namespace WeedShop.Controllers
     
             // weedsFromUser = null;
             var weedsPopular = ( _weedService.GetAllWeeds()).ToList();
-            ViewData["MostPopularWeed"] = weedsPopular.Skip(1).Take(5).ToList();
-            ViewData["MostPopularHash"] = weedsPopular.Skip(6).Take(5).ToList();
+            ViewData["MostPopularWeed"] = weedsPopular.Take(6).ToList();
+            //ViewData["MostPopularHash"] = weedsPopular.Skip(6).Take(5).Where(x => x.TypeProduct == TypeProduct.HASH).ToList();
 
             var userLogin = await _userService.GetUserByEmailAsync(HttpContext.User?.FindFirst(ClaimTypes.Email)?.Value);
             if(userLogin is not null)

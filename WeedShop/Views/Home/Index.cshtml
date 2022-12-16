@@ -50,16 +50,14 @@
 @*most popular*@
 <div class="most-popular-container">
     <div>
-        <h5>WEED</h5>
         <h3>MOST POPULAR</h3>
-
     </div>
 
     <div class="most-popular-box-one">
         @foreach (var item in mostPopularWeed)
         {
-            <div>
-                <img src="@item.ImageFileLocation" />
+            <div class="con-pop">
+                <img  src="@item.ImageFileLocation" />
                 <p>@item.Name</p>
              
                 <p class="price">€ @item.Price</p>
@@ -67,21 +65,7 @@
             </div>
         }
     </div>
-    <div>
-        <h5>Hasj</h5>
-        <h3>MOST POPULAR</h3>
-    </div>
-    <div class="most-popular-box-one">
-        @foreach (var item in mostPopularHash)
-        {
-            <div>
-                <img src="@item.ImageFileLocation" />
-                <p>@item.Name</p>
-               
-                <p class="price">€ @item.Price</p>
-                <a class="weedGreen btn btn-lg" asp-action="Details" asp-controller="Weed" asp-route-id="@item.Id">SHOW MORE</a>
-            </div>
-        }
+
 
     </div>
 </div>
